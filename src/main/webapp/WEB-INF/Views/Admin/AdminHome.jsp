@@ -9,9 +9,9 @@
 </head>
 <body>
 
-<a href="Manage_Category"> Category </a> <br>
-<a href="Manage_Product"> Product </a> <br>
-<a href="Manage_Supplier"> Supplier </a> <br>
+<c:if test="${isUserClickedCategory || isUserClickedProduct || isUserClickedSupplier == true }">
+<jsp:include page="../Menu/CategoryBarAdmin.jsp"></jsp:include>
+</c:if>
 
 <c:if test="${isUserClickedCategory == true}">
 <jsp:include page="Category.jsp"></jsp:include>

@@ -55,6 +55,7 @@ public class HomeController {
 		
 		return modelAndView;
 	}
+
 	
 	@PostMapping("/Validate")
 	public ModelAndView validateCredentials(@RequestParam("User ID") String id, 
@@ -101,6 +102,15 @@ public class HomeController {
 	public ModelAndView HomeMethod()
 	{
 		ModelAndView modelAndView = new ModelAndView("/Home");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/Cart")
+	public ModelAndView showCartPage()
+	{
+		ModelAndView modelAndView = new ModelAndView("/Home");
+		modelAndView.addObject("isUserClickedCart", "true");
+		
 		return modelAndView;
 	}
 }

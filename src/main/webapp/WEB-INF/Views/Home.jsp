@@ -14,8 +14,6 @@
 Your Need Your Choice</small></h1>
 <hr>
 
-<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
-
 <center>
 <h1>${Role} <br>
 ${ErrorMessage} <br>
@@ -23,27 +21,17 @@ ${LoginMessage} <br></h1>
 </center>
 
 <c:if test="${isAdmin == true}">
+<jsp:include page="Menu/CategoryBarAdmin.jsp"></jsp:include>
 <jsp:include page="Admin/AdminHome.jsp"></jsp:include>
 </c:if>
 
-<center>
-<c:if test="${empty LoginMessage}">
-<a href="Login"> Login Page </a> <br>
-<a href="Registration"> Registration Page </a> <br>
+<c:if test="${isAdmin != true  }">
+<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
 </c:if>
-
-<c:if test="${not empty LoginMessage}">
-<a href="Logout"> Logout </a> <br>
-</c:if>
-
-<c:if test="${isAdmin == false}">
-<a href="MyCart"> MyCarts </a> <br>
-</c:if>
-</center>
 
 <c:if test="${isUserClickedLogin == true}">
-<jsp:include page="Login.jsp"></jsp:include>
-</c:if>
+	<jsp:include page="Login.jsp"></jsp:include>
+	</c:if>
 
 <c:if test="${not empty ErrorMessage}">
 	<jsp:include page="Login.jsp"></jsp:include>
@@ -51,6 +39,10 @@ ${LoginMessage} <br></h1>
 
 <c:if test="${isUserClickedRegistration==true}">
 	<jsp:include page="Registration.jsp"></jsp:include>
+	</c:if>
+	
+<c:if test="${isUserClickedCart == true}">
+	<jsp:include page="Cart.jsp"></jsp:include>
 	</c:if>
 
 </body>

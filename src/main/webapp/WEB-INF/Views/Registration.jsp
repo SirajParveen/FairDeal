@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<center><a href="Home"> Home Page </a></center>
 <center><h2>Registration Page</h2></center>
 <center>
 <form action="">

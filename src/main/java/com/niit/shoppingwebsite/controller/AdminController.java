@@ -1,11 +1,39 @@
 package com.niit.shoppingwebsite.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.niit.shoppingcart.dao.CategoryDAO;
+import com.niit.shoppingcart.dao.ProductDAO;
+import com.niit.shoppingcart.dao.SupplierDAO;
+import com.niit.shoppingcart.domain.Category;
+import com.niit.shoppingcart.domain.Product;
+import com.niit.shoppingcart.domain.Supplier;
+
 @Controller
 public class AdminController {
+	
+	@Autowired
+	Category category;
+	
+	@Autowired 
+	CategoryDAO categoryDAO;
+	
+	@Autowired
+	Supplier supplier;
+	
+	@Autowired
+	SupplierDAO supplierDAO;
+	
+	@Autowired
+	Product product;
+	
+	@Autowired
+	ProductDAO productDAO;
 	
 	// define 3 methods 
 	
@@ -13,10 +41,15 @@ public class AdminController {
 	public ModelAndView manageCategories()
 	{
 		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+		System.out.println("Check "+modelAndView);
+		
 		
 		modelAndView.addObject("isUserClickedCategory", "true");
 		
 		//get the categories from DB
+		List<Category> categoryList = categoryDAO.getAllCategories();
+		modelAndView.addObject("categoryList",categoryList);
+		modelAndView.addObject("category",category);// To access category domain object in the category.jsp
 		
 		return modelAndView;
 	}
@@ -28,6 +61,10 @@ public class AdminController {
 		
 		modelAndView.addObject("isUserClickedProduct", "true");
 		
+		List<Product> productList = productDAO.getAllProducts();
+		modelAndView.addObject("productList",productList);
+		modelAndView.addObject("product",product);
+		
 		return modelAndView;
 	}
 	
@@ -38,7 +75,10 @@ public class AdminController {
 		
 		modelAndView.addObject("isUserClickedSupplier", "true");
 		
+		List<Supplier> supplierList = supplierDAO.getAllSuppliers();
+		modelAndView.addObject("supplierList",supplierList);
+		modelAndView.addObject("supplier",supplier);
+		
 		return modelAndView;
 	}
-
 }

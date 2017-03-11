@@ -1,9 +1,11 @@
 package com.niit.shoppingwebsite.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.shoppingcart.dao.CategoryDAO;
@@ -17,17 +19,44 @@ public class CategoryController {
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
-//	@Autowired
-//	private Category category;
+	@Autowired
+	private Category category;
 	
-	public ModelAndView getAllCategories()
+	// CRUD Operations
+	
+	@PostMapping("/Category_Create")
+	public ModelAndView createCategory(@RequestParam("id")String id, @RequestParam("name")String name, @RequestParam("description")String description)
 	{
-		ModelAndView modelAndView = new ModelAndView("/AdminHome");
-		List<Category> categoryList =  categoryDAO.getAllCategories();
+		category.setID(id);
+		category.setName(name);
+		category.setDescription(description);
 		
-		modelAndView.addObject("categoryList", categoryList);
-		modelAndView.addObject("isUserClickedCategory", true);
+		ModelAndView modelAndView = new ModelAndView("Redirect:/Manage_Category");
+		
+		if(categoryDAO.createCategory(category))
+		{
+			modelAndView.addObject("Message", "Successfully Created Category");
+		}
+		else
+		{
+			modelAndView.addObject("Message", "Category Not Created");
+		}
 		return modelAndView;
 	}
-
+	
+	@GetMapping("/Category_Delete{id}")
+	public ModelAndView deleteCategory(@PathVariable("id") String id)
+	{
+		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+		
+		if(categoryDAO.deleteCategory(category))
+		{
+			modelAndView.addObject("Message", "Successfuly Deleted Category");
+		}
+		else
+		{
+			modelAndView.addObject("Message", "Category Not Deleted");
+		}
+		return modelAndView;
+	}
 }
