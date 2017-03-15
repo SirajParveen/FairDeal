@@ -14,14 +14,14 @@
 <hr>
 
 <form action="Category_Create" method="post">
-ID: <input type="text" name="id"><br>
-Name: <input type="text" name="name"><br>
-Description: <input type="text" name="description"><br>
+ID: <input type="text" name="id">
+Name: <input type="text" name="name">
+Description: <input type="text" name="description">
 <input type="submit" value="Create">
 </form>
 <br>
 
-<table border="7">
+<table border="2">
 <thead>
 <tr> 
 <td> ID </td>

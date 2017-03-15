@@ -13,6 +13,10 @@
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
+  
+    <ul class="nav navbar-nav">
+      <li><a href="Home">Home <span class="glyphicon glyphicon-home"></span> </a>
+        </ul>
         
          <ul class="nav navbar-nav">
      <li><a href="#">CATEGORIES  <span class="glyphicon glyphicon-hand-right"></span></a></li>
@@ -63,11 +67,34 @@
           <li><a href="#">Baby Care</a></li>
         </ul>
     </ul>
+    <div class="container">
+    <c:if test="${empty LoginMessage}">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="Login">Login <span class="glyphicon glyphicon-user"></span> </a>
+      <li><a href="Registration">New Customer? Register Here <span class="glyphicon glyphicon-log-in"></span> </a>
+        </ul>
+        </c:if>
         
         <ul class="nav navbar-nav navbar-right">
      <li><a href="#">${LoginMessage}</a></li></ul>
+        
+     <div class="container">
+    <c:if test="${not empty LoginMessage}">
+    <ul class="nav navbar-nav navbar-right">
+    <li><a href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+    </li>
+    </ul>
+    </c:if>
     
+    <c:if test="${isAdmin == false || isUserClickedCart == true}">
+    <ul class="nav navbar-nav navbar-right">
+    <li><a href="Cart">MyCarts  <span class="glyphicon glyphicon-shopping-cart"></span></a>
+    </li>
+    </ul>
+    </c:if>
     </div>
+    </div>
+  </div>
 </nav>
 
 

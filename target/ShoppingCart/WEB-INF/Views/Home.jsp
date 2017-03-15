@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -9,17 +9,23 @@
 </head>
 <body>
 
+<img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="50px" height="50px" align="left">
+<h2><b>Shopping Cart</b><small> <br> 
+Your Need Your Choice</small></h2>
+<br>
+
+<h4><b>${ErrorMessage}</b></h4>
+
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+
 <c:if test="${isAdmin == true}">
 <jsp:include page="Menu/CategoryBarAdmin.jsp"></jsp:include>
 <jsp:include page="Admin/AdminHome.jsp"></jsp:include>
 </c:if>
 
 <c:if test="${isAdmin != true  }">
-<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
 <jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
 </c:if>
-
-<center><h4><b>${ErrorMessage}</b></h4></center>
 
 <c:if test="${isUserClickedLogin == true}">
 	<jsp:include page="Login.jsp"></jsp:include>

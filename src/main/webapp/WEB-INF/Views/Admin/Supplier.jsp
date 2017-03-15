@@ -12,15 +12,15 @@
 <center>
 <h2> Manage Supplier Details </h2>
 
-<form action="">
-ID: <input type="text" name="id">
-Name: <input type="text" name="name">
-Address: <input type="text" name="address">
-Create: <input type="submit" value="Create">
+<form action="Supplier_Create" method="post">
+ID: <input type="text" name="id"><br>
+Name: <input type="text" name="name"><br>
+Address: <input type="text" name="address"><br>
+<input type="submit" value="Create">
 </form>
 <br>
 
-<table border="2">
+<table border="7">
 <thead>
 <tr> 
 <td> ID </td>
@@ -36,7 +36,7 @@ Create: <input type="submit" value="Create">
 <td>${supplier.ID}</td>
 <td>${supplier.name}</td>
 <td>${supplier.address}</td>
-<td> <a href="/Supplier_Edit"> Edit </a> | <a href="/Supplier_Delete"> Delete </a>
+<td><a href="<c:url value='/Supplier_Edit/${supplier.ID}'/>">Edit </a> || <a href="<c:url value='/Supplier_Delete/${supplier.ID}'/>">Delete </a></td>
 </tr>
 
 </c:forEach>

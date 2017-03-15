@@ -41,15 +41,12 @@ public class AdminController {
 	public ModelAndView manageCategories()
 	{
 		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-		System.out.println("Check "+modelAndView);
-		
 		
 		modelAndView.addObject("isUserClickedCategory", "true");
 		
-		//get the categories from DB
 		List<Category> categoryList = categoryDAO.getAllCategories();
-		modelAndView.addObject("categoryList",categoryList);
-		modelAndView.addObject("category",category);// To access category domain object in the category.jsp
+		modelAndView.addObject("categoryList", categoryList);
+		modelAndView.addObject("category", category);
 		
 		return modelAndView;
 	}

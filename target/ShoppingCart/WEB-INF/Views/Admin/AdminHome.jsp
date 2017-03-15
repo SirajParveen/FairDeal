@@ -5,21 +5,17 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title> Admin Home Page </title>
+<title> Admin Page </title>
 </head>
 <body>
 
-<img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="50px" height="50px" align="left">
-<h3><b>Shopping Cart</b><small> <br> 
-Your Need Your Choice</small></h3>
-
-<jsp:include page="../Menu/CategoryMenu.jsp"></jsp:include>
-
-<a href="Manage_Category"> Category </a><br>
-<a href="Manage_Product"> Product </a><br>
-<a href="Manage_Supplier"> Supplier </a>
-
-<a href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+<c:if test="${isUserClickedCategory || isUserClickedProduct || isUserClickedSupplier == true }">
+<img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="100px" height="100px" align="left">
+<h1><b>Shopping Cart</b><small> <br> 
+Your Need Your Choice</small></h1><br>
+<br>
+<jsp:include page="../Menu/CategoryBarAdmin.jsp"></jsp:include>
+</c:if>
 
 <c:if test="${isUserClickedCategory == true}">
 <jsp:include page="Category.jsp"></jsp:include>

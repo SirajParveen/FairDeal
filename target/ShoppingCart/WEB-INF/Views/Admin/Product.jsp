@@ -12,18 +12,18 @@
 <center>
 <h2> Manage Product Details </h2>
 
-<form action="Product_Create" method="post">
-ID: <input type="text" name="id"><br>
-Name: <input type="text" name="name"><br>
-Price: <input type="text" name="price"><br>
-Description: <input type="text" name="description"><br>
-Category_ID: <input type="text" name="category_id"><br>
-Supplier_ID: <input type="text" name="supplier_id"><br>
-<input type="submit" value="Create">
+<form action="">
+ID: <input type="text" name="id">
+Name: <input type="text" name="name">
+Price: <input type="text" name="price">
+Description: <input type="text" name="description">
+Category_ID: <input type="text" name="category_id"> <br>
+Supplier_ID: <input type="text" name="supplier_id">
+Create: <input type="submit" value="Create">
 </form>
 <br>
 
-<table border="7">
+<table border="2">
 <thead>
 <tr> 
 <td> ID </td>
@@ -45,7 +45,7 @@ Supplier_ID: <input type="text" name="supplier_id"><br>
 <td>${product.description}</td>
 <td>${product.category_ID}</td>
 <td>${product.supplier_ID}</td>
-<td><a href="<c:url value='/Product_Edit/${product.ID}'/>">Edit </a> || <a href="<c:url value='/Product_Delete/${product.ID}'/>">Delete </a></td>
+<td> <a href="/Product_Edit">Edit</a> | <a href="/Product_Delete">Delete</a>
 </tr>
 
 </c:forEach>

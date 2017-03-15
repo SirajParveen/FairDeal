@@ -26,7 +26,7 @@ public class HomeController {
 	//Navigating to Home Page Statically
 	@RequestMapping("/")
 	public ModelAndView showHomePage()
-	{
+	{	
 		//Specifying which page you have to navigate
 		ModelAndView modelAndView = new ModelAndView("/Home");
 		
@@ -83,7 +83,7 @@ public class HomeController {
 		}
 		else
 		{
-			modelAndView.addObject("ErrorMessage", "Invalid Credentials");
+			modelAndView.addObject("ErrorMessage", "Please enter a valid USER ID and PASSWORD");
 		}
 		return modelAndView;
 	}
@@ -102,6 +102,7 @@ public class HomeController {
 	public ModelAndView HomeMethod()
 	{
 		ModelAndView modelAndView = new ModelAndView("/Home");
+		modelAndView.addObject("isUserClickedHome", "true");
 		return modelAndView;
 	}
 	

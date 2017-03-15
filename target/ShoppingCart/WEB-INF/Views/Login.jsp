@@ -7,24 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<center><h2>Registration Page</h2></center>
+<center><h2>Login Page</h2></center>
 <center>
-<form action="/Create_User" method = "post">
+<form action="Validate" method="post">
 
 USER ID: <input type="text" name="User ID"> <br>
 
 PASSWORD: <input type="password" name="Password"> <br>
 
-CONTACT: <input type="text" name="Contact"> <br>
+<input type="submit" value="Login"> 
 
-EMAIL: <input type="text" name="Email"> <br>
-
-ADDRESS: <input type="text" name="Address"><br>
-
-<input type = "submit" value = "Register">
+<input type="reset" value="Reset">
 
 </form>
 </center>
+
 </body>
 </html>
-
