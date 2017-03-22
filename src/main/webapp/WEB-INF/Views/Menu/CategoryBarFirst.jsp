@@ -15,14 +15,21 @@
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
-      <li><a href="#"><img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="50px" height="50px" align="left"> </a>
+      <li><a href="#"><img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="60px" height="60px" align="left"> </a>
         </ul>
         
         <ul class="nav navbar-nav">
-       <li> <h3><b>Shopping Cart</b><small> <br> 
-		Your Need Your Choice</small></h3>
+       <li> <h3><b>FairDeal</b><small> <br> 
+		IT IS ALL ABOUT YOU</small></h3>
 		</li>
 		</ul>
+		
+		<form class="navbar-form navbar-right">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 		
 		 <ul class="nav navbar-nav navbar-right">
       <li><a href="Home"><b>Home </b><span class="glyphicon glyphicon-home"></span> </a>

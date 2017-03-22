@@ -13,10 +13,11 @@
 <h2> Manage Supplier Details </h2>
 
 <form action="Supplier_Create" method="post">
-ID: <input type="text" name="id"><br>
-Name: <input type="text" name="name"><br>
-Address: <input type="text" name="address"><br>
-<input type="submit" value="Create">
+<b>ID:</b> <input type="text" name="id"><br><br>
+<b>Name:</b> <input type="text" name="name"><br><br>
+<b>Address:</b> <input type="text" name="address"><br><br>
+<b><input type="submit" value="Create"></b>&nbsp; &nbsp; &nbsp; &nbsp;
+<b><input type="reset" value="Reset"></b>
 </form>
 <br>
 

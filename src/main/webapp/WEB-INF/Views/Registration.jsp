@@ -4,27 +4,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="spring"%>
+<title>Registration Page</title>
 </head>
 <body>
-<center><h2>Registration Page</h2></center>
-<center>
-<form action="/Create_User" method = "post">
 
-USER ID: <input type="text" name="User ID"> <br>
+<h2>Please Register</h2>
 
-PASSWORD: <input type="password" name="Password"> <br>
+<!--  Before coming to this page, you have to add  userDetails in ModelAndView object-->
 
-CONTACT: <input type="text" name="Contact"> <br>
+<form action="/Registration" method="post">
 
-EMAIL: <input type="text" name="Email"> <br>
+USER ID: <input type="text" name="user">  <br>
+ 
+PASSWORD : <input type="password" name="password">   <br>
 
-ADDRESS: <input type="text" name="Address"><br>
+CONTACT : <input type="text" name="contact"> <br>
 
-<input type = "submit" value = "Register">
+EMAIL : <input type="text" name="email"> <br>
+
+ADDRESS : <input type="text" name="address"><br>
+
+<input type="submit" value="Register">
+
 
 </form>
-</center>
 </body>
 </html>
-

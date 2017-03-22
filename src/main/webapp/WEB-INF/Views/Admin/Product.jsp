@@ -13,13 +13,14 @@
 <h2> Manage Product Details </h2>
 
 <form action="Product_Create" method="post">
-ID: <input type="text" name="id"><br>
-Name: <input type="text" name="name"><br>
-Price: <input type="text" name="price"><br>
-Description: <input type="text" name="description"><br>
-Category_ID: <input type="text" name="category_id"><br>
-Supplier_ID: <input type="text" name="supplier_id"><br>
-<input type="submit" value="Create">
+<b>ID:</b> <input type="text" name="id"><br><br>
+<b>Name:</b> <input type="text" name="name"><br><br>
+<b>Price:</b> <input type="text" name="price"><br><br>
+<b>Description:</b> <input type="text" name="description"><br><br>
+<b>Category_ID:</b> <input type="text" name="category_id"><br><br>
+<b>Supplier_ID:</b> <input type="text" name="supplier_id"><br><br>
+<b><input type="submit" value="Create"></b>&nbsp; &nbsp; &nbsp; &nbsp;
+<b><input type="reset" value="Reset"></b>
 </form>
 <br>
 

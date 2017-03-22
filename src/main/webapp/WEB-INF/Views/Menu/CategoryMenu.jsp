@@ -18,58 +18,27 @@
      <li><a href="#">CATEGORIES  <span class="glyphicon glyphicon-hand-right"></span></a></li>
         </ul>
  
-    <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">ELECTRONICS<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Mobiles</a></li>
-          <li><a href="#">Laptops</a></li>
-          <li><a href="#">Televisions</a></li>
-          <li><a href="#">Camera</a></li>
-        </ul>
-    </ul>
-     <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">APPLIANCES<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Air Coditioners</a></li>
-          <li><a href="#">Refrigerator</a></li>
-          <li><a href="#">Washing Machine</a></li>
-          <li><a href="#">Kitchen Appliances</a></li>
-        </ul>
-    </ul>
-     <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MEN<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Clothing</a></li>
-          <li><a href="#">Footwear</a></li>
-          <li><a href="#">Watches</a></li>
-          <li><a href="#">Accessories</a></li>
-        </ul>
-    </ul>
-     <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">WOMEN<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Clothing</a></li>
-          <li><a href="#">Footwear</a></li>
-          <li><a href="#">Jewellery</a></li>
-          <li><a href="#">Accessories</a></li>
-        </ul>
-    </ul>
-     <ul class="nav navbar-nav">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">KIDS AND BABIES<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Kids Clothing</a></li>
-          <li><a href="#">Kids Footwear</a></li>
-          <li><a href="#">Toys</a></li>
-          <li><a href="#">Baby Care</a></li>
-        </ul>
-    </ul>
-        
+ 	<ul class="nav navbar-nav" role="tablist">
+ 	<c:forEach items="${categoryList}" var="category">
+ 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">${category.name}<span class="caret"></span></a>
+ 	
+ 	<ul class="dropdown-menu" role="menu">
+ 	<c:forEach items="${categoryList}" var="product">
+ 	<li><a href="Manage_Product/getAllProducts/${product.ID}">${product.name}</a></li>
+ 	</c:forEach>
+ 	</ul></li>
+ 	</c:forEach>
+ 	</ul>
+ 	
         <ul class="nav navbar-nav navbar-right">
      <li><a href="#">${LoginMessage}</a></li></ul>
     
+    
     </div>
+    
+   <%--  <hr color="blue" width="100" >
+	${category.products} --%>
+    
 </nav>
-
-
 </body>
 </html>
