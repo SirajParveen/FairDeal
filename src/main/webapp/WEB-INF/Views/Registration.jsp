@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <title>Registration Page</title>
 </head>
 <body>
@@ -14,21 +15,37 @@
 
 <!--  Before coming to this page, you have to add  userDetails in ModelAndView object-->
 
-<form action="/Registration" method="post">
+<c:url var="action" value="Registration"></c:url>
 
-USER ID: <input type="text" name="user">  <br>
- 
-PASSWORD : <input type="password" name="password">   <br>
+	<form:form action="${action}" method="post" commandName="user">
 
-CONTACT : <input type="text" name="contact"> <br>
+		<div class="input-group margin-bottom-sm">
+			<form:label path="id"><spring:message text="id" /></form:label>
+			<form:input path="id" required="true" />
+		</div>
 
-EMAIL : <input type="text" name="email"> <br>
+	<div class="input-group margin-bottom-sm">
+			<form:label path="name"><spring:message text="name" /></form:label>
+			<form:input path="name" required="true" />
+		</div>
 
-ADDRESS : <input type="text" name="address"><br>
 
-<input type="submit" value="Register">
-
-
-</form>
+		<div class="input-group margin-bottom-sm">
+			<form:label path="password"><spring:message text="password" /></form:label>
+			<form:input path="password" required="true" />
+		</div>
+		
+		<div class="input-group margin-bottom-sm">
+		<form:label path="contact"><spring:message text="contact" /></form:label>
+		<form:input path="contact" required="true" />
+		</div>
+		
+		<div class="input-group margin-bottom-sm">
+		<form:label path="mail"><spring:message text="mail" /></form:label>
+		<form:input path="mail" required="true" />
+		</div>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+		<input type="submit" class="btn btn-default" value="Register">
+	</form:form>
 </body>
 </html>

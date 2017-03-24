@@ -1,86 +1,99 @@
 package com.niit.fairdeal.controller;
 
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import com.niit.fairdeal.dao.SupplierDAO;
 import com.niit.fairdeal.domain.Supplier;
 
 @Controller
 public class SupplierController {
+	
+	private static Logger log = LoggerFactory.getLogger(SupplierController.class);
 
 	@Autowired
 	private SupplierDAO supplierDAO;
 
 	@Autowired
 	private Supplier supplier;
-
-	@PostMapping("/Supplier_Create")
-	public ModelAndView createSupplier(@RequestParam("id") String id, @RequestParam("name") String name,
-			@RequestParam("address") String address) {
-
-		supplier.setID(id);
-		supplier.setName(name);
-		supplier.setAddress(address);
-
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-
-		modelAndView.addObject("isUserClickedSupplier", "true");
-
-		if (supplierDAO.createSupplier(supplier)) {
-			modelAndView.addObject("Message", "Successfully Created Supplier");
-		} 
-		else {
-			modelAndView.addObject("Message", "Supplier Not Created");
-		}
-		List<Supplier> supplierList = supplierDAO.getAllSuppliers();
-		modelAndView.addObject("supplierList",supplierList);
-		modelAndView.addObject("supplier",supplier);
-		return modelAndView;
-	}
-
-	@RequestMapping("/Supplier_Delete/{id}")
-	public ModelAndView deleteSupplier(@PathVariable("id") String id) {
-		supplier.setID(id);
-
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-
-		modelAndView.addObject("isUserClickedSupplier", "true");
-
-		if (supplierDAO.deleteSupplier(supplier)) {
-			modelAndView.addObject("Message", "Successfuly Deleted Supplier");
-		} 
-		else {
-			modelAndView.addObject("Message", "Supplier Not Deleted");
-		}
-		List<Supplier> supplierList = supplierDAO.getAllSuppliers();
-		modelAndView.addObject("supplierList",supplierList);
-		modelAndView.addObject("supplier",supplier);
-		return modelAndView;
-	}
-
-	@GetMapping("/Supplier_Edit/{id}")
-	public ModelAndView editSupplier(@PathVariable("id") String id) {
+	
+	@RequestMapping(value = "/Manage_Supplier", method = RequestMethod.GET)
+	public String listSupplier(Model model) {
 		
-		supplier.setID(id);
+		log.debug(" Starting of the method listSupplier");
+		
+		model.addAttribute("supplier", supplier);
+		model.addAttribute("supplierList", supplierDAO.getAllSuppliers());
+		model.addAttribute("isAdminClickedSupplier", "true");
+		
+		log.debug(" Ending of the method listSupplier");
+		return "forward:/Manage_Supplier";
+	}
 
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+	@RequestMapping(value = "/Manage_Supplier_Create", method = RequestMethod.POST)
+	public String createSupplier(@ModelAttribute("supplier") Supplier supplier, Model model) {
 
-		modelAndView.addObject("isUserClickedSupplier", "true");
-
-		if (supplierDAO.updateSupplier(supplier)) {
-			modelAndView.addObject("Message", "Successfuly Edited Supplier");
-		} else {
-			modelAndView.addObject("Message", "Supplier Not Edited");
+		log.debug(" Starting of the method createSupplier");
+		log.info("id:" + supplier.getID());
+		
+		if (supplierDAO.createSupplier(supplier) == true) {
+			
+			model.addAttribute("Message", "Successfully created supplier");
+		} 
+		else 
+		{
+			model.addAttribute("Message", "Supplier Not Created");
 		}
-		return modelAndView;
+		model.addAttribute("supplier", supplier);
+		model.addAttribute("supplierList", supplierDAO.getAllSuppliers());
+		model.addAttribute("isAdminClickedSupplier", "true");
+		
+		log.debug(" Ending of the method createSupplier");
+		return "forward:/Manage_Supplier";
+	}
+
+	@RequestMapping("/Manage_Supplier_Delete/{id}")
+	public String deleteSupplier(@PathVariable("id") String id, Model model) throws Exception{
+
+		log.debug("Starting of the method deleteSupplier");
+		
+		boolean flag = supplierDAO.deleteSupplier(supplier);
+
+		String msg = "Successfully deleted the supplier";
+		
+		if (flag != true) 
+		{
+			msg = "Not able to delete the supplier";
+		}
+		model.addAttribute("Message", msg);
+		
+		log.debug("Ending of the method deleteSupplier");
+		return "forward:/Manage_Supplier";
+	}
+
+	@GetMapping("/Manage_Supplier_Edit/{id}")
+	public String editSupplier(@PathVariable("id") String id, Model model) throws Exception {
+		
+		log.debug("Starting of the method deleteSupplier");
+		
+		boolean flag = supplierDAO.deleteSupplier(supplier);
+
+		String msg = "Successfully deleted the supplier";
+		
+		if (flag != true) 
+		{
+			msg = "Not able to delete the supplier";
+		}
+		model.addAttribute("Message", msg);
+		
+		log.debug("Ending of the method deleteSupplier");
+		return "forward:/Manage_Supplier";
 	}
 }

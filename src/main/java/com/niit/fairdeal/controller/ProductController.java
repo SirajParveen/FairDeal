@@ -1,7 +1,7 @@
 package com.niit.fairdeal.controller;
 
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,88 +10,86 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.domain.Product;
 
 @Controller
 public class ProductController {
+	
+	private static Logger log = LoggerFactory.getLogger(ProductController.class);
 
 	@Autowired
 	private ProductDAO productDAO;
 
 	@Autowired
 	private Product product;
+	
+	@RequestMapping(value = "/Manage_Product", method = RequestMethod.GET)
+	public String listProduct(Model model) {
+		
+		log.debug(" Starting of the method listProduct");
+		
+		model.addAttribute("product", product);
+		model.addAttribute("productList", productDAO.getAllProducts());
+		model.addAttribute("isAdminClickedProduct", "true");
+		
+		log.debug(" Ending of the method listProduct");
+		return "forward:/Manage_Product";
+	}
 
-	@PostMapping("/Product_Create")
+	@PostMapping("/Manage_Product_Create")
 	public String createProduct(@ModelAttribute("product") Product product, Model model)
-	{
-		/*product.setID(id);
-		product.setName(name);
-		product.setPrice(price);
-		product.setDescription(description);
-		product.setCategory_ID(category_id);
-		product.setSupplier_ID(supplier_id);
+	{	
+		log.debug(" Starting of the method createProduct");
+		log.info("id:" + product.getID());
 		
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-		
-		modelAndView.addObject("isUserClickedProduct", "true");*/
-		
-		if(productDAO.createProduct(product))
+		if(productDAO.createProduct(product) == true)
 		{
-			model.addAttribute("Message", "Successfully Created Product");
+			model.addAttribute("Message", "Successfully Created the Product");
 		}
 		else
 		{
 			model.addAttribute("Message", "Product Not Created");
 		}
-
-		model.addAttribute("productList",productDAO.getAllProducts());
 		model.addAttribute("product",product);
+		model.addAttribute("productList",productDAO.getAllProducts());
+		model.addAttribute("isAdminClickedProduct", "true");
+		
+		log.debug(" Ending of the method createProduct");
 		return "forward:/Manage_Product";
 	}
 	
-	@RequestMapping("/Product_Delete/{id}")
-	public ModelAndView deleteProduct(@PathVariable("id") String id)
+	@RequestMapping("/Manage_Product_Delete/{id}")
+	public String deleteProduct(@PathVariable("id") String id, Model model) throws Exception
 	{
-		product.setID(id);
+		log.debug("Starting of the method deleteProduct");
 		
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+		boolean flag = productDAO.deleteProduct(product);
+
+		String msg = "Successfully deleted the product";
 		
-		modelAndView.addObject("isUserClickedProduct", "true");
-		
-		if(productDAO.deleteProduct(product))
+		if (flag != true) 
 		{
-			modelAndView.addObject("Message", "Successfuly Deleted Product");
+			msg = "Not able to delete the product";
 		}
-		else
-		{
-			modelAndView.addObject("Message", "Product Not Deleted");
-		}
-		List<Product> productList = productDAO.getAllProducts();
-		modelAndView.addObject("productList",productList);
-		modelAndView.addObject("product",product);
-		return modelAndView;
+		model.addAttribute("Message", msg);
+		
+		log.debug("Ending of the method deleteProduct");
+		return "forward:/Manage_Product";
 	}
 	
-	@GetMapping("/Product_Edit/{id}")
-	public ModelAndView editProduct(@PathVariable("id") String id)
+	@GetMapping("/Manage_Product_Edit/{id}")
+	public String editProduct(@PathVariable("id") String id, Model model)
 	{
-		product.setID(id);
+		log.debug("Starting of the method editProduct");
+
+		productDAO.updateProduct(product);
+		product = productDAO.getProductByID(id);
 		
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+		model.addAttribute("product", product);
 		
-		modelAndView.addObject("isUserClickedProduct", "true");
-		
-		if(productDAO.updateProduct(product))
-		{
-			modelAndView.addObject("Message", "Successfuly Edited Product");
-		}
-		else
-		{
-			modelAndView.addObject("Message", "Product Not Edited");
-		}
-		return modelAndView;
+		log.debug("Ending of the method editProduct");
+		return "forward:/Manage_Product";
 	}
 }

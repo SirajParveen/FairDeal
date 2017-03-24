@@ -53,7 +53,7 @@ public class HomeController {
 	{	
 		log.debug("Starting of the method showHomePage");
 		
-		ModelAndView modelAndView = new ModelAndView("/Home");
+		ModelAndView modelAndView = new ModelAndView("Home");
 		
 		session.setAttribute("category", category);
 		session.setAttribute("product", product);
@@ -67,9 +67,11 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/Login")
+	@RequestMapping("/login")
 	public ModelAndView showLoginPage()
 	{
+		
+		System.err.println("Login method");
 		log.debug("Starting of the method showLoginPage");
 		
 		//Specifying which page you have to navigate

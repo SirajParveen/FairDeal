@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<beans
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+	<security:http auto-config="true" use-expressions="true">
 
-	<security:http auto-config="true">
+		<security:intercept-url pattern="/Manage/**" access="hasRole('ROLE_ADMIN')" />
+		
+		<security:intercept-url pattern="/Cart/**" access="hasRole('ROLE_USER')" />
+		
+		
 
-		<!-- http://locahost:8080/ShoppingCart/intercept_url -->
-		<!-- intercept url starting -->
+		<security:form-login login-page="/Login" default-target-url="/" login-processing-url="/perform_login"
+			authentication-failure-url="/"
+			authentication-success-forward-url="/login_session_attribute"/>
 
-		<security:intercept-url access="hasRole('Admin') " pattern="/Manage**" />
+		<security:logout logout-url="/secure_logout" invalidate-session="true" logout-success-url="/Home" />
 
-		<security:intercept-url access="hasRole('User') " pattern="/Cart/**" />
-
-		<security:intercept-url access="hasRole('User') " pattern="/Cart_Checkout**" />
-
-		<!-- intercept url ending -->
-
-		<security:access-denied-handler error-page="/accessDenied" />
-
-		<security:csrf />
-
-		<!-- Login.jsp is name of your login page -->
-		<!-- j_spring_security_check should same as in the Login.jsp -->
-		<!-- form action = "j_spring_security_check" -->
-		<security:form-login password-parameter="password"
-			username-parameter="username" authentication-failure-url="/loginError"
-			default-target-url="/validate" login-processing-url="/j_spring_security_check"
-			login-page="/Login" />
-
-		<security:logout delete-cookies="JSESSIONID"
-			logout-success-url="/secure_logout" logout-url="/j_spring_security_Logout" />
+		<security:csrf disabled="true" />
 
 	</security:http>
 
 	<security:authentication-manager>
-
 		<security:authentication-provider>
-
 			<security:jdbc-user-service
-				authorities-by-username-query="select id, role from user where id=?"
-				users-by-username-query="select id, password, 'true' as enabled from user where id=?"
-				data-source-ref="dataSource" />
-
+			
+				data-source-ref="dataSource"
+				users-by-username-query="select id,password,enabled from user where id=? "
+				authorities-by-username-query="select id, role from user where id =?" />
+				
 		</security:authentication-provider>
-
 	</security:authentication-manager>
-
-</beans>
+</beans:beans>

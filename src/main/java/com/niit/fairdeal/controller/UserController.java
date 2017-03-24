@@ -111,25 +111,16 @@ public class UserController {
 	}*/
 
 	@RequestMapping(value = "/Registration", method = RequestMethod.POST)
-	public ModelAndView registerUser(@ModelAttribute User user) 
-	{
-		log.debug("Starting of the method registerUser");
-		ModelAndView modelAndView = new ModelAndView("Home");
-		
-		if (userDAO.getUserByID("id") == null) {
-			user.setRole("User"); // all the users are end users by default
-			userDAO.createUser(user);
-			log.debug("You are successfully register");
-			modelAndView.addObject("successMessage", "You are successfully registered");
-		} 
-		else 
-		{
+	public String registerUser(@ModelAttribute User user) 
 
-			log.debug("User exist with this id");
-			modelAndView.addObject("errorMessage", "User exist with this id");
-		}
-		log.debug("Ending of the method registerUser");
-		return modelAndView;
+	{
+		user.setEnabled(true);
+		user.setRole("ROLE_USER");
+		userDAO.createUser(user);
+		return "Home";
+		
+
+	
 	}
 
 	/*//authentication-failure-forward-url="/loginError"
