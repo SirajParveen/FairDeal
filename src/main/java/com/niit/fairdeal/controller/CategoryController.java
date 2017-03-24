@@ -27,7 +27,7 @@ public class CategoryController {
 	
 	// CRUD Operations
 	
-	@RequestMapping(value = "/Manage_Category", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/Manage_Category", method = RequestMethod.GET)
 	public String listCategory(Model model) {
 		
 		log.debug(" Starting of the method listCategory");
@@ -37,15 +37,15 @@ public class CategoryController {
 		model.addAttribute("isAdminClickedCategory", "true");
 		
 		log.debug(" Ending of the method listCategory");
-		return "/Home";
-	}
+		return "/Admin/Category";
+	}*/
 	
 	
 	@RequestMapping(value = "/Manage_Category_Create", method = RequestMethod.POST)
 	public String createCategory(@ModelAttribute("category") Category category, Model model)
 	{
 		log.debug(" Starting of the method createCategory");
-		log.info("id:" + category.getID());
+		log.info("id:" + category.getId());
 		
 		if (categoryDAO.createCategory(category) == true) {
 			
@@ -87,7 +87,7 @@ public class CategoryController {
 		
 		log.debug("Starting of the method editCategory");
 
-		/*categoryDAO.updateCategory(category);*/
+		categoryDAO.updateCategory(category);
 		category = categoryDAO.getCategoryByID(id);
 		
 		/*model.addAttribute("category", category);*/

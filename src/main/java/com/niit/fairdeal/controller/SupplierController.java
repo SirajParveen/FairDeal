@@ -23,7 +23,7 @@ public class SupplierController {
 
 	@Autowired
 	private Supplier supplier;
-	
+	/*
 	@RequestMapping(value = "/Manage_Supplier", method = RequestMethod.GET)
 	public String listSupplier(Model model) {
 		
@@ -35,13 +35,13 @@ public class SupplierController {
 		
 		log.debug(" Ending of the method listSupplier");
 		return "forward:/Manage_Supplier";
-	}
+	}*/
 
 	@RequestMapping(value = "/Manage_Supplier_Create", method = RequestMethod.POST)
 	public String createSupplier(@ModelAttribute("supplier") Supplier supplier, Model model) {
 
 		log.debug(" Starting of the method createSupplier");
-		log.info("id:" + supplier.getID());
+		log.info("id:" + supplier.getId());
 		
 		if (supplierDAO.createSupplier(supplier) == true) {
 			

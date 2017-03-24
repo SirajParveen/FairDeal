@@ -31,9 +31,9 @@ document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg
 	<jsp:include page="Login.jsp"></jsp:include>
 	</c:if>
 
-<c:if test="${not empty errorMessage}">
+<%-- <c:if test="${not empty errorMessage}">
 	<jsp:include page="Login.jsp"></jsp:include>
-	</c:if>	
+	</c:if>	 --%>
 
 <c:if test="${isUserClickedRegistration==true}">
 	<jsp:include page="Registration.jsp"></jsp:include>

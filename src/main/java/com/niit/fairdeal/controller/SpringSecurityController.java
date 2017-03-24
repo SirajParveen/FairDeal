@@ -1,16 +1,12 @@
 package com.niit.fairdeal.controller;
 
 import java.util.Collection;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.niit.fairdeal.dao.CartDAO;
 import com.niit.fairdeal.dao.CategoryDAO;
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.dao.SupplierDAO;
 import com.niit.fairdeal.dao.UserDAO;
-import com.niit.fairdeal.domain.Cart;
 import com.niit.fairdeal.domain.Category;
 import com.niit.fairdeal.domain.Product;
 import com.niit.fairdeal.domain.Supplier;
@@ -38,7 +32,7 @@ public class SpringSecurityController {
 	@Autowired
 	private UserDAO userDAO;
 	
-	@Autowired
+	/*@Autowired
 	private User user;
 	
 	@Autowired
@@ -46,7 +40,7 @@ public class SpringSecurityController {
 
 	@Autowired
 	private Cart cart;
-
+*/
 	@Autowired
 	private CategoryDAO categoryDAO;
 
@@ -89,37 +83,41 @@ public class SpringSecurityController {
 			return "Home";
 		}
 		
-		@RequestMapping(value = "login_session_attribute", method = RequestMethod.GET)//used when security is not used
-		public ModelAndView validate(HttpServletRequest request, HttpServletResponse response) throws Exception 
-		{
-			log.debug("Starting of the method validate");
-			ModelAndView modelAndView = new ModelAndView("Home");
-			
-			//session = request.getSession(true);
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();  
-			String userID = auth.getName();
-			System.out.println(userID);
-			session.setAttribute("loggedInUser", userID);
-			
-			if(request.isUserInRole("ROLE_ADMIN"))
+
+		@RequestMapping(value = "/login_session_attribute")
+		public String login_session_attributes(HttpSession session,Model model) {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			System.err.println(username);
+			User user = userDAO.getUserByName(username);
+			session.setAttribute("userid", user.getId());
+			session.setAttribute("name", user.getName());
+			session.setAttribute("LoggedIn", "true");
+
+			@SuppressWarnings("unchecked")
+			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext()
+			.getAuthentication().getAuthorities();
+			String role="ROLE_USER";
+			for (GrantedAuthority authority : authorities) 
 			{
-				session.setAttribute("isAdmin", true);
-			}
-			else
-			{
-			session.setAttribute("isAdmin", false);
-			
-			modelAndView.addObject("Cart", cart);
-			
-			// Fetch the Cart list based on user ID
-			List<Cart> cartList = cartDAO.getAllCarts(userID);
-			modelAndView.addObject("cartList", cartList);
-			modelAndView.addObject("cartSize", cartList.size());
-			modelAndView.addObject("totalAmount", cartDAO.getTotalAmount(userID));
-			
-			}
-			log.debug("Ending of the method validate");
-			return modelAndView;
+			  
+			     if (authority.getAuthority().equals(role)) 
+			     {
+			    	 session.setAttribute("UserLoggedIn", "true");
+			    	
+			    	 return "redirect:/";
+			     }
+			     else 
+			     {
+			    	 session.setAttribute("Administrator", "true");
+			    	model.addAttribute("product",  new Product());
+			    	 model.addAttribute("ProductPageClicked", "true");
+			    	 model.addAttribute("supplierList",supplierDAO.getAllSuppliers());
+			    	 model.addAttribute("categoryList",categoryDAO.getAllCategories());
+				 return "/Admin/AdminHome";
+			     }
+		}
+			return "/Home";
+		
 		}
 		
 		

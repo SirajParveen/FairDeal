@@ -38,7 +38,7 @@
 		
 		 <div class="container">
 	 
-     <c:if test="${empty LoginMessage}">  
+
      <security:authorize access="!isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
     
@@ -47,18 +47,18 @@
     
         </ul>
          </security:authorize>
-        </c:if> 
+ 
          
         
         <div class="container">
-     <c:if test="${not empty LoginMessage}">
-      <security:authorize access="!isAuthenticated()">
+    
+      <security:authorize access="isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
-    <li><a href="/secure_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
+    <li><a href="secure_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
     </li>
     </ul>
 </security:authorize>
-    </c:if> 
+
     
     <c:if test="${isAdmin == false || isUserClickedCart == true}">
     <ul class="nav navbar-nav navbar-right">

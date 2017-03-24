@@ -12,7 +12,7 @@
 
 	<table>
 		<tr>
-			<th align="left" width="80">Cart ID</th>
+			<th align="left" width="80">Cart id</th>
 			<th align="left" width="120">Product Name</th>
 			<th align="left" width="200">Date Added</th>
 			<th align="left" width="80">Price</th>
@@ -21,11 +21,11 @@
 		</tr>
 		<c:forEach items="${cartList}" var="cart">
 			<tr>
-				<td align="left">${cart.ID}</td>
+				<td align="left">${cart.id}</td>
 				<td align="left">${cart.productName}</td>
 				<td align="left">${cart.addedDate}</td>
 				<td align="left">${cart.price}</td>
-				<td align="left"><a href="<c:url value='/Cart/deleteCart/${cart.ID}'/>">Delete </a>
+				<td align="left"><a href="<c:url value='/Cart/deleteCart/${cart.id}'/>">Delete </a>
 				<img alt="${selectedProduct.name}" src="${imageFolder}${selectedProduct.ID}.jpg"></td>
 			</tr>
 		</c:forEach>

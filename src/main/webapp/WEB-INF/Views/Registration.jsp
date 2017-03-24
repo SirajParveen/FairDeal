@@ -18,11 +18,11 @@
 <c:url var="action" value="Registration"></c:url>
 
 	<form:form action="${action}" method="post" commandName="user">
-
+<%-- 
 		<div class="input-group margin-bottom-sm">
 			<form:label path="id"><spring:message text="id" /></form:label>
 			<form:input path="id" required="true" />
-		</div>
+		</div> --%>
 
 	<div class="input-group margin-bottom-sm">
 			<form:label path="name"><spring:message text="name" /></form:label>

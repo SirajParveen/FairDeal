@@ -23,9 +23,7 @@ public class HomeController {
 	
 	Logger log = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	private User user;
-	
+
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
@@ -47,6 +45,10 @@ public class HomeController {
 	@Autowired
 	private HttpSession session;
 	
+	
+	@Autowired
+	private User user;
+	
 	//http://localhost:8080/FairDeal/
 	@RequestMapping("/")
 	public ModelAndView showHomePage()
@@ -58,7 +60,7 @@ public class HomeController {
 		session.setAttribute("category", category);
 		session.setAttribute("product", product);
 		session.setAttribute("supplier", supplier);
-		
+		session.setAttribute("user",new User());
 		session.setAttribute("categoryList", categoryDAO.getAllCategories());
 		session.setAttribute("productList", productDAO.getAllProducts());
 		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
@@ -150,6 +152,7 @@ public class HomeController {
 		modelAndView.addObject("isUserClickedHome", "true");*/
 		
 		model.addAttribute("selectedProduct", selectedProduct);
+		model.addAttribute("user", user);
 		
 		log.debug("Ending of the method reDirectToHome");
 		return "/Home";

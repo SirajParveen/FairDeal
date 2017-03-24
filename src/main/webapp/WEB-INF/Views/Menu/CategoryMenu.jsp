@@ -24,7 +24,7 @@
  	
  	<ul class="dropdown-menu" role="menu">
  	<c:forEach items="${category.products}" var="product">
- 	<li><a href="Manage_Product/getAllProducts/${product.ID}">${product.name}</a></li>
+ 	<li><a href="Manage_Product/getAllProducts/${product.id}">${product.name}</a></li>
  	</c:forEach>
  	</ul></li>
  	</c:forEach>

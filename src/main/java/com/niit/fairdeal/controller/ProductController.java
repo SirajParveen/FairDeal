@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.domain.Product;
 
@@ -25,7 +24,7 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	
-	@RequestMapping(value = "/Manage_Product", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/Manage_Product", method = RequestMethod.GET)
 	public String listProduct(Model model) {
 		
 		log.debug(" Starting of the method listProduct");
@@ -36,13 +35,13 @@ public class ProductController {
 		
 		log.debug(" Ending of the method listProduct");
 		return "forward:/Manage_Product";
-	}
+	}*/
 
 	@PostMapping("/Manage_Product_Create")
 	public String createProduct(@ModelAttribute("product") Product product, Model model)
 	{	
 		log.debug(" Starting of the method createProduct");
-		log.info("id:" + product.getID());
+		log.info("id:" + product.getId());
 		
 		if(productDAO.createProduct(product) == true)
 		{

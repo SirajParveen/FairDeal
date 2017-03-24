@@ -42,12 +42,16 @@ public class AdminController {
 	// http://localhost:8080/ShoppingCart/Manage_Category
 	// <a href="/Manage_Category"></a>
 	// id, name, description
+	
+	
+	
 	@RequestMapping("/Manage_Category")
 	public ModelAndView manageCategories() {
 		
 		log.debug("Starting of the method manageCategories");
 		
-		ModelAndView modelAndView = new ModelAndView("Home");
+		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+		
 		modelAndView.addObject("category", category);
 		modelAndView.addObject("isAdminClickedCategory", "true");
 		modelAndView.addObject("categoryList", categoryDAO.getAllCategories());
@@ -62,7 +66,7 @@ public class AdminController {
 		
 		log.debug("Starting of the method manageProducts");
 		
-		ModelAndView modelAndView = new ModelAndView("Home");
+		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
 
 		modelAndView.addObject("isAdminClickedProduct", "true");
 
@@ -85,7 +89,7 @@ public class AdminController {
 		
 		log.debug("Starting of the method manageSuppliers");
 		
-		ModelAndView modelAndView = new ModelAndView("Home");
+		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
 
 		modelAndView.addObject("isAdminClickedSupplier", "true");
 

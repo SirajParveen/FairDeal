@@ -22,9 +22,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		
 		
 
-		<security:form-login login-page="/Login" default-target-url="/" login-processing-url="/perform_login"
-			authentication-failure-url="/"
-			authentication-success-forward-url="/login_session_attribute"/>
+		<security:form-login login-page="/Login" default-target-url="/login_session_attribute" login-processing-url="/perform_login"
+			authentication-failure-url="/login_session_attribute" />
 
 		<security:logout logout-url="/secure_logout" invalidate-session="true" logout-success-url="/Home" />
 
@@ -37,8 +36,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			<security:jdbc-user-service
 			
 				data-source-ref="dataSource"
-				users-by-username-query="select id,password,enabled from user where id=? "
-				authorities-by-username-query="select id, role from user where id =?" />
+				users-by-username-query="select name,password,enabled from user_details where name=? "
+				authorities-by-username-query="select name, role from user_details where name =?" />
 				
 		</security:authentication-provider>
 	</security:authentication-manager>
