@@ -24,14 +24,14 @@ ${Message}
 
 <tr>
 
-<td><form:label path="id"><spring:message text="ID" /></form:label></td>
+<%-- <td><form:label path="id"><spring:message text="id" /></form:label></td> --%>
 
 	<c:choose>
-	<c:when test="${not empty category.ID} ">
+	<c:when test="${not empty category.id} ">
 	<td><form:input path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" pattern=".{5,20}" required="true" title="ID should contain 5 to 20 characters" /></td>
+	<%-- <td><form:input path="id" required="true" title="id" should contain 5 to 20 characters" /></td> --%>
 	</c:otherwise>
 	</c:choose>
 
@@ -62,7 +62,7 @@ ${Message}
 	<c:if test="${!empty categoryList}">
 	<table class="tg">
 			<tr>
-			<th width="80">ID</th>
+			<th width="80">id</th>
 			<th width="120">Name</th>
 			<th width="120">Description</th>
 			<th width="60">Edit</th>
@@ -70,12 +70,12 @@ ${Message}
 			</tr>
 	<c:forEach items="${categoryList}" var="category">
 			<tr>
-			<td>${category.ID}</td>
+			<td>${category.id}</td>
 			<td>${category.name}</td>
 			<td>${category.description}</td>
-			<td><a href="<c:url value='/Manage_Category_Edit/${category.ID}' />">Edit</a></td>
+			<td><a href="<c:url value='/Manage_Category_Edit/${category.id}' />">Edit</a></td>
 					
-			<td><a href="<c:url value='/Manage_Category_Delete/${category.ID}' />">Delete</a></td>
+			<td><a href="<c:url value='/Manage_Category_Delete/${category.id}' />">Delete</a></td>
 			</tr>
 	</c:forEach>
 	</table>

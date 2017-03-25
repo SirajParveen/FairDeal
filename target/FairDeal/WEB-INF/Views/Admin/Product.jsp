@@ -24,14 +24,14 @@ ${Message}
 
 <tr>
 
-<td><form:label path="id"><spring:message text="ID" /></form:label></td>
+<%-- <td><form:label path="id"><spring:message text="id" /></form:label></td> --%>
 
 	<c:choose>
-	<c:when test="${not empty product.ID} ">
+	<c:when test="${not empty product.id} ">
 	<td><form:input path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" pattern=".{5,20}" required="true" title="ID should contain 5 to 20 characters" /></td>
+	<%-- <td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td> --%>
 	</c:otherwise>
 	</c:choose>
 
@@ -51,12 +51,12 @@ ${Message}
 </tr>
 
 <tr>
-<td><form:label path="category_id"><spring:message text="Category_ID" /></form:label></td>
+<td><form:label path="category_id"><spring:message text="Category_id" /></form:label></td>
 <td><form:input path="category_id" required="true" /></td>
 </tr>
 
 <tr>
-<td><form:label path="supplier_id"><spring:message text="Supplier_ID" /></form:label></td>
+<td><form:label path="supplier_id"><spring:message text="Supplier_id" /></form:label></td>
 <td><form:input path="supplier_id" required="true" /></td>
 </tr>
 			
@@ -77,26 +77,26 @@ ${Message}
 	<c:if test="${!empty productList}">
 	<table class="tg">
 			<tr>
-			<th width="80">ID</th>
+			<th width="80">id</th>
 			<th width="120">Name</th>
 			<th width="120">Price</th>
 			<th width="120">Description</th>
-			<th width="120">Category_ID</th>
-			<th width="120">Supplier_ID</th>
+			<th width="120">Category_id</th>
+			<th width="120">Supplier_id</th>
 			<th width="60">Edit</th>
 			<th width="60">Delete</th>
 			</tr>
 	<c:forEach items="${productList}" var="product">
 			<tr>
-			<td>${product.ID}</td>
+			<td>${product.id}</td>
 			<td>${product.name}</td>
 			<td>${product.price}</td>
 			<td>${product.description}</td>
-			<td>${product.category_ID}</td>
-			<td>${product.supplier_ID}</td>
-			<td><a href="<c:url value='/Manage_Product_Edit/${product.ID}' />">Edit</a></td>
+			<td>${product.category_id}</td>
+			<td>${product.supplier_id}</td>
+			<td><a href="<c:url value='/Manage_Product_Edit/${product.id}' />">Edit</a></td>
 					
-			<td><a href="<c:url value='/Manage_Product_Delete/${product.ID}' />">Delete</a></td>
+			<td><a href="<c:url value='/Manage_Product_Delete/${product.id}' />">Delete</a></td>
 			</tr>
 	</c:forEach>
 	</table>
@@ -108,12 +108,12 @@ ${Message}
 <h2> Manage Product Details </h2>
 
 <form action="Product_Create" method="post">
-<b>ID:</b> <input type="text" name="id"><br><br>
+<b>id:</b> <input type="text" name="id"><br><br>
 <b>Name:</b> <input type="text" name="name"><br><br>
 <b>Price:</b> <input type="text" name="price"><br><br>
 <b>Description:</b> <input type="text" name="description"><br><br>
-<b>Category_ID:</b> <input type="text" name="category_id"><br><br>
-<b>Supplier_ID:</b> <input type="text" name="supplier_id"><br><br>
+<b>Category_id:</b> <input type="text" name="category_id"><br><br>
+<b>Supplier_id:</b> <input type="text" name="supplier_id"><br><br>
 <b><input type="submit" value="Create"></b>&nbsp; &nbsp; &nbsp; &nbsp;
 <b><input type="reset" value="Reset"></b>
 </form>
@@ -122,7 +122,7 @@ ${Message}
 <table border="7">
 <thead>
 <tr> 
-<td> ID </td>
+<td> id </td>
 <td> Name </td>
 <td> Price </td>
 <td> Description </td>
@@ -135,13 +135,13 @@ ${Message}
 <c:forEach var="product" items="${productList}">
 
 <tr>
-<td>${product.ID}</td> 
+<td>${product.id}</td> 
 <td>${product.name}</td>
 <td>${product.price}</td>
 <td>${product.description}</td>
-<td>${product.category_ID}</td>
-<td>${product.supplier_ID}</td>
-<td><a href="<c:url value='/Product_Edit/${product.ID}'/>">Edit </a> || <a href="<c:url value='/Product_Delete/${product.ID}'/>">Delete </a></td>
+<td>${product.category_id}</td>
+<td>${product.supplier_id}</td>
+<td><a href="<c:url value='/Product_Edit/${product.id}'/>">Edit </a> || <a href="<c:url value='/Product_Delete/${product.id}'/>">Delete </a></td>
 </tr>
 
 </c:forEach>

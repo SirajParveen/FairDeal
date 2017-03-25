@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,7 +47,7 @@ public class AdminController {
 	// id, name, description
 	
 	
-	
+/*	
 	@RequestMapping("/Manage_Category")
 	public ModelAndView manageCategories() {
 		
@@ -58,7 +61,7 @@ public class AdminController {
 
 		log.debug("Ending of the method manageCategories");
 		return modelAndView;
-	}
+	}*/
 
 	// id, name, price, description, category_id, supplier_id
 	@RequestMapping("/Manage_Product")
@@ -80,23 +83,6 @@ public class AdminController {
 		modelAndView.addObject("supplierList", supplierDAO.getAllSuppliers());
 
 		log.debug("Ending of the method manageProducts");
-		return modelAndView;
-	}
-
-	// id, name, address
-	@RequestMapping("/Manage_Supplier")
-	public ModelAndView manageSuppliers() {
-		
-		log.debug("Starting of the method manageSuppliers");
-		
-		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-
-		modelAndView.addObject("isAdminClickedSupplier", "true");
-
-		modelAndView.addObject("supplierList", supplierDAO.getAllSuppliers());
-		modelAndView.addObject("supplier", supplier);
-
-		log.debug("Ending of the method manageSuppliers");
 		return modelAndView;
 	}
 }

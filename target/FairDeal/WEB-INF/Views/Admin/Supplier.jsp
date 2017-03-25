@@ -24,14 +24,14 @@ ${Message}
 
 <tr>
 
-<td><form:label path="id"><spring:message text="ID" /></form:label></td>
+<%-- <td><form:label path="id"><spring:message text="id" /></form:label></td> --%>
 
 	<c:choose>
-	<c:when test="${not empty supplier.ID} ">
+	<c:when test="${not empty supplier.id} ">
 	<td><form:input path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" pattern=".{5,20}" required="true" title="ID should contain 5 to 20 characters" /></td>
+	<%-- <td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td> --%>
 	</c:otherwise>
 	</c:choose>
 
@@ -62,7 +62,7 @@ ${Message}
 	<c:if test="${!empty supplierList}">
 	<table class="tg">
 			<tr>
-			<th width="80">ID</th>
+			<th width="80">id</th>
 			<th width="120">Name</th>
 			<th width="120">Address</th>
 			<th width="60">Edit</th>
@@ -70,12 +70,12 @@ ${Message}
 			</tr>
 	<c:forEach items="${supplierList}" var="supplier">
 			<tr>
-			<td>${supplier.ID}</td>
+			<td>${supplier.id}</td>
 			<td>${supplier.name}</td>
 			<td>${supplier.address}</td>
-			<td><a href="<c:url value='/Manage_Supplier_Edit/${supplier.ID}' />">Edit</a></td>
+			<td><a href="<c:url value='/Manage_Supplier_Edit/${supplier.id}' />">Edit</a></td>
 					
-			<td><a href="<c:url value='/Manage_Supplier_Delete/${supplier.ID}' />">Delete</a></td>
+			<td><a href="<c:url value='/Manage_Supplier_Delete/${supplier.id}' />">Delete</a></td>
 			</tr>
 	</c:forEach>
 	</table>
@@ -87,7 +87,7 @@ ${Message}
 <h2> Manage Supplier Details </h2>
 
 <form action="Supplier_Create" method="post">
-<b>ID:</b> <input type="text" name="id"><br><br>
+<b>id:</b> <input type="text" name="id"><br><br>
 <b>Name:</b> <input type="text" name="name"><br><br>
 <b>Address:</b> <input type="text" name="address"><br><br>
 <b><input type="submit" value="Create"></b>&nbsp; &nbsp; &nbsp; &nbsp;
@@ -98,7 +98,7 @@ ${Message}
 <table border="7">
 <thead>
 <tr> 
-<td> ID </td>
+<td> id </td>
 <td> Name </td>
 <td> Address </td>
 <td> Action </td>
@@ -108,10 +108,10 @@ ${Message}
 <c:forEach var="supplier" items="${supplierList}">
 
 <tr>
-<td>${supplier.ID}</td>
+<td>${supplier.id}</td>
 <td>${supplier.name}</td>
 <td>${supplier.address}</td>
-<td><a href="<c:url value='/Supplier_Edit/${supplier.ID}'/>">Edit </a> || <a href="<c:url value='/Supplier_Delete/${supplier.ID}'/>">Delete </a></td>
+<td><a href="<c:url value='/Supplier_Edit/${supplier.id}'/>">Edit </a> || <a href="<c:url value='/Supplier_Delete/${supplier.ID}'/>">Delete </a></td>
 </tr>
 
 </c:forEach>

@@ -1,13 +1,15 @@
 package com.niit.fairdeal.controller;
 
-import java.util.Collection;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.niit.fairdeal.dao.CartDAO;
 import com.niit.fairdeal.dao.CategoryDAO;
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.dao.SupplierDAO;
-import com.niit.fairdeal.dao.UserDAO;
+import com.niit.fairdeal.domain.Cart;
 import com.niit.fairdeal.domain.Category;
 import com.niit.fairdeal.domain.Product;
 import com.niit.fairdeal.domain.Supplier;
-import com.niit.fairdeal.domain.User;
 
 @Controller
 public class SpringSecurityController {
@@ -30,17 +32,11 @@ public class SpringSecurityController {
 	public static Logger log = LoggerFactory.getLogger(SpringSecurityController.class);
 	
 	@Autowired
-	private UserDAO userDAO;
-	
-	/*@Autowired
-	private User user;
-	
-	@Autowired
 	private CartDAO cartDAO;
 
 	@Autowired
 	private Cart cart;
-*/
+
 	@Autowired
 	private CategoryDAO categoryDAO;
 
@@ -84,10 +80,11 @@ public class SpringSecurityController {
 		}
 		
 
-		@RequestMapping(value = "/login_session_attribute")
+		/*@RequestMapping(value = "login_session_attribute")
 		public String login_session_attributes(HttpSession session,Model model) {
+			
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			System.err.println(username);
+	
 			User user = userDAO.getUserByName(username);
 			session.setAttribute("userid", user.getId());
 			session.setAttribute("name", user.getName());
@@ -108,9 +105,9 @@ public class SpringSecurityController {
 			     }
 			     else 
 			     {
-			    	 session.setAttribute("Administrator", "true");
+			    	 session.setAttribute("isAdmin", "true");
 			    	model.addAttribute("product",  new Product());
-			    	 model.addAttribute("ProductPageClicked", "true");
+			    	 model.addAttribute("isAdminClickedProduct", "true");
 			    	 model.addAttribute("supplierList",supplierDAO.getAllSuppliers());
 			    	 model.addAttribute("categoryList",categoryDAO.getAllCategories());
 				 return "/Admin/AdminHome";
@@ -118,6 +115,39 @@ public class SpringSecurityController {
 		}
 			return "/Home";
 		
+		}*/
+		
+		
+		
+		@RequestMapping(value = "login_session_attribute", method = RequestMethod.GET)
+		public ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			log.debug("starting of the method validate");
+			ModelAndView mv = new ModelAndView("/Home");
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String username = auth.getName();
+			session.setAttribute("loggedInUser", username);
+
+			if (request.isUserInRole("ROLE_ADMIN")) {
+
+				session.setAttribute("isAdmin", true);
+
+			} else {
+
+				session.setAttribute("isAdmin", false);
+				
+				mv.addObject("Cart", cart);
+				
+				List<Cart> cartList = cartDAO.getAllCarts(username);
+				mv.addObject("cartList", cartList);
+				mv.addObject("cartSize", cartList.size());
+				mv.addObject("totalAmount", cartDAO.getTotalAmount(username));
+
+				
+
+			}
+			log.debug("Ending of the method validate");
+			return mv;
 		}
 		
 		
@@ -174,7 +204,7 @@ public class SpringSecurityController {
 			log.debug("Starting of the method secureLogout");
 			//what you attach to session at the time of login need to remove
 			session.invalidate();
-			ModelAndView modelAndView = new ModelAndView("/Home");
+			ModelAndView modelAndView = new ModelAndView("/");
 			
 			//After logout user should be able to browse category and product
 			//as we invalidate() session, need to load these data again

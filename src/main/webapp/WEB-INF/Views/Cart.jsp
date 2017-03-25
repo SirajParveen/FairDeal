@@ -10,7 +10,7 @@
 
 <c:set var="imageFolder" value="resources/Images/" />
 
-	<table>
+	<table >
 		<tr>
 			<th align="left" width="80">Cart id</th>
 			<th align="left" width="120">Product Name</th>

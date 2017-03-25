@@ -11,6 +11,14 @@
 </head>
 <body>
 
+
+<script>
+document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg')";
+</script>
+
+<jsp:include page="../Menu/CategoryBarFirst.jsp"></jsp:include>
+<jsp:include page="../Menu/CategoryMenu.jsp"></jsp:include>
+
 ${Message}
 
 <center>
@@ -24,14 +32,14 @@ ${Message}
 
 <tr>
 
-<%-- <td><form:label path="id"><spring:message text="id" /></form:label></td> --%>
+<td><form:label path="id"><spring:message text="id" /></form:label></td>
 
 	<c:choose>
 	<c:when test="${not empty supplier.id} ">
 	<td><form:input path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<%-- <td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td> --%>
+	<td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td>
 	</c:otherwise>
 	</c:choose>
 
@@ -118,5 +126,7 @@ ${Message}
 </table>
 
 </center> --%>
+
+<jsp:include page="../Menu/Footer.jsp"></jsp:include>
 </body>
 </html>

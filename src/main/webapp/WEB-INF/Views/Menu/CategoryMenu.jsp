@@ -36,8 +36,8 @@
     
     </div>
     
-    <hr color="blue" width="100" >
-	${category.products}
+    <%-- <hr color="blue" width="100" >
+	${category.products} --%>
     
 </nav>
 </body>

@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
 	<div id="AdminHome">
 		<a href="Manage_Category">Manage Category</a> &nbsp; &nbsp; <a
 			href="Manage_Supplier">Manage Supplier</a> &nbsp; &nbsp; <a

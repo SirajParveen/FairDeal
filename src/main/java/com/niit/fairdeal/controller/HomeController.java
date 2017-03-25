@@ -55,11 +55,12 @@ public class HomeController {
 	{	
 		log.debug("Starting of the method showHomePage");
 		
-		ModelAndView modelAndView = new ModelAndView("Home");
+		ModelAndView modelAndView = new ModelAndView("/Home");
 		
 		session.setAttribute("category", category);
 		session.setAttribute("product", product);
 		session.setAttribute("supplier", supplier);
+		
 		session.setAttribute("user",new User());
 		session.setAttribute("categoryList", categoryDAO.getAllCategories());
 		session.setAttribute("productList", productDAO.getAllProducts());

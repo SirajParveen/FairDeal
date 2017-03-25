@@ -15,25 +15,18 @@ ${Message}
 document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg')";
 </script>
 
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
+<jsp:include page="Menu/Carousel.jsp"></jsp:include>
+
 <c:if test="${isAdmin == true}">
 <jsp:include page="Admin/AdminHome.jsp"></jsp:include>
 </c:if>
-
-<c:if test="${isAdmin != true  }">
-<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
-<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
-</c:if>
-
-<jsp:include page="Menu/Carousel.jsp"></jsp:include>
 
 <c:if test="${isUserClickedLogin == true || invalidCredentials == true}">
 	<div id="loginError">${errorMessage}</div>
 	<jsp:include page="Login.jsp"></jsp:include>
 	</c:if>
-
-<%-- <c:if test="${not empty errorMessage}">
-	<jsp:include page="Login.jsp"></jsp:include>
-	</c:if>	 --%>
 
 <c:if test="${isUserClickedRegistration==true}">
 	<jsp:include page="Registration.jsp"></jsp:include>

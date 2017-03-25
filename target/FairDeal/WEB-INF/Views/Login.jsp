@@ -19,7 +19,7 @@
 
 		<div class="input-group margin-bottom-sm">
 			<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> 
-			<input class="form-control" type="text" name="username" placeholder="User ID">
+			<input class="form-control" type="text" name="username" placeholder="User id">
 		</div>
 
 		<div class="input-group"><span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
@@ -30,7 +30,7 @@
 		<input type="submit" class="btn btn-default" value="Login">
 	</form>
 
-	<%-- <b>Enter USER ID:</b> <input type="text" name="username"> <br><br>
+	<%-- <b>Enter USER id:</b> <input type="text" name="username"> <br><br>
 
 <b>Enter PASSWORD:</b> <input type="password" name="password"> <br><br>
 
