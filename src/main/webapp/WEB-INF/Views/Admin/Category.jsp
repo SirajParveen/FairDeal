@@ -18,12 +18,23 @@ document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg
 <jsp:include page="../Menu/CategoryBarFirst.jsp"></jsp:include>
 <jsp:include page="../Menu/CategoryMenu.jsp"></jsp:include>
 
+<a href="Manage_Category">Manage Category</a> &nbsp; &nbsp; <a
+href="Manage_Supplier">Manage Supplier</a> &nbsp; &nbsp; <a
+href="Manage_Product">Manage Product</a> &nbsp; &nbsp;
+
 ${Message}
 
 <center>
 <h2> Manage Category Details </h2>
 
+<c:if test="${empty category.name}">
 <c:url var="addAction" value="/Manage_Category_Create"></c:url>
+</c:if>
+
+<c:if test="${!empty category.name}">
+<c:url var="addAction" value="/Manage_Category_Update"></c:url>
+</c:if>
+
 	<form:form action="${addAction}" commandName="category"  method="post">
 
 <table border="7">
@@ -35,21 +46,21 @@ ${Message}
 
 	<c:choose>
 	<c:when test="${not empty category.id} ">
-	<td><form:input path="id"  readonly="true" /></td>
+	<td><form:hidden path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" required="true" title="id should contain 5 to 20 characters" /></td>
+	<td><form:input path="id" required="true" /></td>
 	</c:otherwise>
 	</c:choose>
 
 <tr>
 <td><form:label path="name"><spring:message text="Name" /></form:label></td>
-<td><form:input path="name" required="true" /></td>
+<td><form:input path="name" required="true" title="Name should not be empty"/></td>
 </tr>
 
 <tr>
 <td><form:label path="description"> <spring:message text="Description"/></form:label></td>
-<td><form:input path="description" required="true" /></td>
+<td><form:input path="description" required="true" title="Enter Description"/></td>
 </tr>
 			
 <tr>

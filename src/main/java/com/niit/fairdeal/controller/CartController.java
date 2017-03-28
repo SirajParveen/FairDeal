@@ -57,7 +57,7 @@ public class CartController
 		
 		if(loggedInUserid != null)
 		{
-		int cartSize = cartDAO.getAllCarts(loggedInUserid).size();
+			int cartSize = cartDAO.getAllCarts(loggedInUserid);
 
 		if (cartSize == 0) {
 			model.addAttribute("errorMessage", "You do not have any products in your Cart");
@@ -76,7 +76,7 @@ public class CartController
 
 	// For add and update Cart both
 	@RequestMapping(value = "/Cart/add/{id}", method = RequestMethod.GET)
-	public ModelAndView addToCart(@PathVariable("id") String id) 
+	public ModelAndView addToCart(@PathVariable("id") int id) 
 	{
 		log.debug("Starting of the method addToCart");
 		
@@ -92,7 +92,8 @@ public class CartController
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			loggedInUserid = auth.getName();
 		}
-		cart.setUserID(loggedInUserid);
+		/*cart.setUserID(loggedInUserid);*/
+		cart.setUserID(id);
 	
 		//It is not required if you given default value while creating the table
 		// Status is New. Once it is dispatched, we can changed to 'D'
@@ -101,7 +102,8 @@ public class CartController
 		//To get sequence number, you can do programmatically in DAOImpl
 		//myCart.setId(ThreadLocalRandom.current().nextLong(100, 1000000 + 1));
 							
-		cartDAO.saveCart(cart);
+		/*cartDAO.saveCart(cart);*/
+		cartDAO.createCart(cart);
 		
 		// return "redirect:/views/home.jsp";
 		

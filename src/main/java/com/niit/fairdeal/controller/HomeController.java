@@ -61,7 +61,7 @@ public class HomeController {
 		session.setAttribute("product", product);
 		session.setAttribute("supplier", supplier);
 		
-		session.setAttribute("user",new User());
+		session.setAttribute("user", user);
 		session.setAttribute("categoryList", categoryDAO.getAllCategories());
 		session.setAttribute("productList", productDAO.getAllProducts());
 		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
@@ -73,12 +73,10 @@ public class HomeController {
 	@RequestMapping("/login")
 	public ModelAndView showLoginPage()
 	{
-		
-		System.err.println("Login method");
 		log.debug("Starting of the method showLoginPage");
 		
 		//Specifying which page you have to navigate
-		ModelAndView modelAndView = new ModelAndView("/Home");
+		ModelAndView modelAndView = new ModelAndView("/Login");
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("isUserClickedLogin", "true");
 		
@@ -93,7 +91,7 @@ public class HomeController {
 		log.debug("Starting of the method showRegistrationPage");
 		
 		//Specifying which page you have to navigate
-		ModelAndView modelAndView = new ModelAndView("/Home");
+		ModelAndView modelAndView = new ModelAndView("/Registration");
 		
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("isUserClickedRegistration", "true");
@@ -149,11 +147,8 @@ public class HomeController {
 	{
 		log.debug("Starting of the method reDirectToHome");
 		
-		/*ModelAndView modelAndView = new ModelAndView("/Home");
-		modelAndView.addObject("isUserClickedHome", "true");*/
-		
 		model.addAttribute("selectedProduct", selectedProduct);
-		model.addAttribute("user", user);
+		model.addAttribute("user", new User());
 		
 		log.debug("Ending of the method reDirectToHome");
 		return "/Home";

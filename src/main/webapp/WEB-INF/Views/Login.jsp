@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<script>
+document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg')";
+</script>
+
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
+
 	<h2>LOGIN</h2>
 	<br> 
 	${Message}
@@ -19,7 +26,7 @@
 
 		<div class="input-group margin-bottom-sm">
 			<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> 
-			<input class="form-control" type="text" name="username" placeholder="User id">
+			<input class="form-control" type="text" name="username" placeholder="Username">
 		</div>
 
 		<div class="input-group"><span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
@@ -30,15 +37,7 @@
 		<input type="submit" class="btn btn-default" value="Login">
 	</form>
 
-	<%-- <b>Enter USER id:</b> <input type="text" name="username"> <br><br>
-
-<b>Enter PASSWORD:</b> <input type="password" name="password"> <br><br>
-
-<b><input type="submit" value="Login"></b> &nbsp; &nbsp; &nbsp; &nbsp; 
-
-<b><input type="reset" value="Reset"></b>
-
-</form>--%>
+<jsp:include page="Menu/Footer.jsp"></jsp:include>
 
 </body>
 </html>

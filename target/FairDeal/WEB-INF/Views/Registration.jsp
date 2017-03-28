@@ -11,6 +11,13 @@
 </head>
 <body>
 
+<script>
+document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg')";
+</script>
+
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+<jsp:include page="Menu/CategoryMenu.jsp"></jsp:include>
+
 <h2>Please Register</h2>
 
 <!--  Before coming to this page, you have to add  userDetails in ModelAndView object-->
@@ -47,5 +54,8 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 		<input type="submit" class="btn btn-default" value="Register">
 	</form:form>
+	
+	<jsp:include page="Menu/Footer.jsp"></jsp:include>
+	
 </body>
 </html>

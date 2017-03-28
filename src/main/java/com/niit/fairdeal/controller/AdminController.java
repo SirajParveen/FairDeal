@@ -39,33 +39,25 @@ public class AdminController {
 
 	@Autowired
 	ProductDAO productDAO;
-
-	// define 3 methods
-
-	// http://localhost:8080/ShoppingCart/Manage_Category
-	// <a href="/Manage_Category"></a>
+	
 	// id, name, description
-	
-	
-/*	
 	@RequestMapping("/Manage_Category")
-	public ModelAndView manageCategories() {
-		
+	public ModelAndView manageCategories(@ModelAttribute("category") Category category, BindingResult result, Model model) 
+	{
 		log.debug("Starting of the method manageCategories");
 		
 		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
-		
-		modelAndView.addObject("category", category);
+	
 		modelAndView.addObject("isAdminClickedCategory", "true");
 		modelAndView.addObject("categoryList", categoryDAO.getAllCategories());
 
 		log.debug("Ending of the method manageCategories");
 		return modelAndView;
-	}*/
-
+	}
+	
 	// id, name, price, description, category_id, supplier_id
 	@RequestMapping("/Manage_Product")
-	public ModelAndView manageProducts() {
+	public ModelAndView manageProducts(@ModelAttribute("product") Product product, BindingResult result, Model model) {
 		
 		log.debug("Starting of the method manageProducts");
 		
@@ -81,8 +73,25 @@ public class AdminController {
 
 		modelAndView.addObject("supplier", supplier);
 		modelAndView.addObject("supplierList", supplierDAO.getAllSuppliers());
+		
+		modelAndView.addObject("getAllProducts", product.getCategory());
 
 		log.debug("Ending of the method manageProducts");
+		return modelAndView;
+	}
+	
+	// id, name, address
+	@RequestMapping("/Manage_Supplier")
+	public ModelAndView manageSuppliers(@ModelAttribute("supplier") Supplier supplier, BindingResult result, Model model) {
+		
+		log.debug("Starting of the method manageSuppliers");
+		
+		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
+
+		modelAndView.addObject("isAdminClickedSupplier", "true");
+		modelAndView.addObject("supplierList", supplierDAO.getAllSuppliers());
+
+		log.debug("Ending of the method manageSuppliers");
 		return modelAndView;
 	}
 }

@@ -15,17 +15,23 @@ http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 	<security:http auto-config="true" use-expressions="true">
+	
+		<!-- intercept URL starting-->
 
-		<security:intercept-url pattern="/Manage/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/Manage*/**" access="hasRole('ROLE_ADMIN')" />
 		
 		<security:intercept-url pattern="/Cart/**" access="hasRole('ROLE_USER')" />
 		
+		<!-- intercept URL Ending-->
 		
+		<security:access-denied-handler error-page="/accessDenied"/>
+		
+		<security:csrf/>
 
 		<security:form-login login-page="/Login" default-target-url="/login_session_attribute" login-processing-url="/perform_login"
-			authentication-failure-url="/login_session_attribute" />
+			authentication-failure-url="/loginError" />
 
-		<security:logout logout-url="/secure_logout" invalidate-session="true" logout-success-url="/" />
+		<security:logout logout-url="/secure_logout" invalidate-session="true" logout-success-url="/Home" />
 
 		<security:csrf disabled="true" />
 
@@ -36,8 +42,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			<security:jdbc-user-service
 			
 				data-source-ref="dataSource"
-				users-by-username-query="select name,password,enabled from user_details where name=? "
-				authorities-by-username-query="select name, role from user_details where name =?" />
+				users-by-username-query="select name,password,enabled from user where name= ? "
+				authorities-by-username-query="select name, role from user where name= ?" />
 				
 		</security:authentication-provider>
 	</security:authentication-manager>

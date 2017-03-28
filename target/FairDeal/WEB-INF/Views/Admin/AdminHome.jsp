@@ -13,9 +13,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-</head>
-
 <body>
+
 	<div id="AdminHome">
 		<a href="Manage_Category">Manage Category</a> &nbsp; &nbsp; <a
 			href="Manage_Supplier">Manage Supplier</a> &nbsp; &nbsp; <a

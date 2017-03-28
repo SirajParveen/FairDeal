@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
@@ -41,10 +41,8 @@
 
      <security:authorize access="!isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
-   
       <li><a href="login"><b>Login </b><span class="glyphicon glyphicon-user"></span> </a>
       <li><a href="Registration"><b>New Customer? Register Here </b><span class="glyphicon glyphicon-log-in"></span> </a>
-    
         </ul>
          </security:authorize>
  
@@ -56,9 +54,8 @@
     <li><a href="secure_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
     </li>
     </ul>
-</security:authorize>
+	</security:authorize>
 
-    
     <c:if test="${isAdmin == false || isUserClickedCart == true}">
     <ul class="nav navbar-nav navbar-right">
     <li><a href="Cart"><b>MyCarts </b><span class="glyphicon glyphicon-shopping-cart"></span></a>
@@ -70,6 +67,8 @@
 </div>		
  </div>
  </nav>
+ 
+<jsp:include page="CategoryMenu.jsp"></jsp:include> 
 
 </body>
 </html>

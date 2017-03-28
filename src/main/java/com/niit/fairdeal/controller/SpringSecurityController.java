@@ -1,7 +1,5 @@
 package com.niit.fairdeal.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +19,6 @@ import com.niit.fairdeal.dao.CartDAO;
 import com.niit.fairdeal.dao.CategoryDAO;
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.dao.SupplierDAO;
-import com.niit.fairdeal.domain.Cart;
 import com.niit.fairdeal.domain.Category;
 import com.niit.fairdeal.domain.Product;
 import com.niit.fairdeal.domain.Supplier;
@@ -33,9 +30,6 @@ public class SpringSecurityController {
 	
 	@Autowired
 	private CartDAO cartDAO;
-
-	@Autowired
-	private Cart cart;
 
 	@Autowired
 	private CategoryDAO categoryDAO;
@@ -58,6 +52,8 @@ public class SpringSecurityController {
 	@Autowired
 	private HttpSession session;
 
+	private Object cart;
+	
 		//authentication-failure-forward-url="/loginError"
 		@RequestMapping(value = "/loginError", method = RequestMethod.GET)
 		public String loginError(Model model) {
@@ -79,46 +75,6 @@ public class SpringSecurityController {
 			return "Home";
 		}
 		
-
-		/*@RequestMapping(value = "login_session_attribute")
-		public String login_session_attributes(HttpSession session,Model model) {
-			
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-	
-			User user = userDAO.getUserByName(username);
-			session.setAttribute("userid", user.getId());
-			session.setAttribute("name", user.getName());
-			session.setAttribute("LoggedIn", "true");
-
-			@SuppressWarnings("unchecked")
-			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext()
-			.getAuthentication().getAuthorities();
-			String role="ROLE_USER";
-			for (GrantedAuthority authority : authorities) 
-			{
-			  
-			     if (authority.getAuthority().equals(role)) 
-			     {
-			    	 session.setAttribute("UserLoggedIn", "true");
-			    	
-			    	 return "redirect:/";
-			     }
-			     else 
-			     {
-			    	 session.setAttribute("isAdmin", "true");
-			    	model.addAttribute("product",  new Product());
-			    	 model.addAttribute("isAdminClickedProduct", "true");
-			    	 model.addAttribute("supplierList",supplierDAO.getAllSuppliers());
-			    	 model.addAttribute("categoryList",categoryDAO.getAllCategories());
-				 return "/Admin/AdminHome";
-			     }
-		}
-			return "/Home";
-		
-		}*/
-		
-		
-		
 		@RequestMapping(value = "login_session_attribute", method = RequestMethod.GET)
 		public ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			log.debug("starting of the method validate");
@@ -138,36 +94,26 @@ public class SpringSecurityController {
 				
 				mv.addObject("Cart", cart);
 				
-				List<Cart> cartList = cartDAO.getAllCarts(username);
+				int cartList = cartDAO.getAllCarts(username);
 				mv.addObject("cartList", cartList);
-				mv.addObject("cartSize", cartList.size());
+				mv.addObject("cartSize", cartList);
 				mv.addObject("totalAmount", cartDAO.getTotalAmount(username));
-
-				
-
 			}
+			
 			log.debug("Ending of the method validate");
 			return mv;
 		}
 		
 		
-		
-		
-	/*	@SuppressWarnings("unchecked")
-		@RequestMapping(value = "/login")
-		public String checkData(HttpSession session,Model model,User user1) {
-			log.info("login operation start");
-			System.err.println("Validate method");
+		/*@RequestMapping(value = "/login_session_attribute")
+		public String login_session_attribute(HttpSession session,Model model) {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			System.out.println("User Name: "+username);
-			user1 = userDAO.getUserByID(user1.getId());
-			System.out.println(user1);
-			
-			session.setAttribute("userId", user1.getId());
-			session.setAttribute("name", user1.getName());
+			User user = userDAO.getUserByName(username);
+			session.setAttribute("userid", user.getId());
+			session.setAttribute("name", user.getName());
 			session.setAttribute("LoggedIn", "true");
-			System.out.println(session.getAttribute("userId"));
 
+			@SuppressWarnings("unchecked")
 			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext()
 			.getAuthentication().getAuthorities();
 			String role="ROLE_USER";
@@ -177,34 +123,32 @@ public class SpringSecurityController {
 			     if (authority.getAuthority().equals(role)) 
 			     {
 			    	 session.setAttribute("UserLoggedIn", "true");
-			    	 session.setAttribute("cartsize",cartDAO.cartsize((int)session.getAttribute("userId"))"");
+			    	 session.setAttribute("cartsize",cartDAO.cartsize((Integer)session.getAttribute("userid")));
+			    	 session.setAttribute("cartSize", cartDAO.get((Integer) session.getAttribute(username)));
+			    	 return "redirect:/";
 			     }
 			     else 
 			     {
-			    	 session.setAttribute("isAdmin", "true");
-			    	 model.addAttribute("product",  new Product());
-			    	 model.addAttribute("isAdminClickedProduct", "true");
-			    	 model.addAttribute("isAdminClickedCategory", "true");
-			    	 model.addAttribute("isAdminClickedSupplier", "true");
-			    	 model.addAttribute("supplerList",supplierDAO.getAllSuppliers());
+			    	 session.setAttribute("Administrator", "true");
+			    	model.addAttribute("product",  new Product());
+			    	 model.addAttribute("ProductPageClicked", "true");
+			    	 model.addAttribute("supplierList",supplierDAO.getAllSuppliers());
 			    	 model.addAttribute("categoryList",categoryDAO.getAllCategories());
-			    	 return "Admin/AdminHome";
-				 }
-			}
-			return "Home";
+				 return "/Admin";
+			     }
 		}
+			return "/home";
 		
+		}*/
 		
-		
-		
-		*/
 		@RequestMapping("/secure_logout")
 		public ModelAndView secureLogout()
 		{
 			log.debug("Starting of the method secureLogout");
 			//what you attach to session at the time of login need to remove
 			session.invalidate();
-			ModelAndView modelAndView = new ModelAndView("/");
+		
+			ModelAndView modelAndView = new ModelAndView("Home");
 			
 			//After logout user should be able to browse category and product
 			//as we invalidate() session, need to load these data again

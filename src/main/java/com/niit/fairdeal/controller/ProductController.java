@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.domain.Product;
 
@@ -23,25 +25,12 @@ public class ProductController {
 
 	@Autowired
 	private Product product;
-	
-	/*@RequestMapping(value = "/Manage_Product", method = RequestMethod.GET)
-	public String listProduct(Model model) {
-		
-		log.debug(" Starting of the method listProduct");
-		
-		model.addAttribute("product", product);
-		model.addAttribute("productList", productDAO.getAllProducts());
-		model.addAttribute("isAdminClickedProduct", "true");
-		
-		log.debug(" Ending of the method listProduct");
-		return "forward:/Manage_Product";
-	}*/
 
-	@PostMapping("/Manage_Product_Create")
+	@RequestMapping(value = "/Manage_Product_Create", method = RequestMethod.POST)
 	public String createProduct(@ModelAttribute("product") Product product, Model model)
 	{	
 		log.debug(" Starting of the method createProduct");
-		log.info("id:" + product.getId());
+		log.info("id: " +product.getId());
 		
 		if(productDAO.createProduct(product) == true)
 		{
@@ -56,39 +45,40 @@ public class ProductController {
 		model.addAttribute("isAdminClickedProduct", "true");
 		
 		log.debug(" Ending of the method createProduct");
-		return "forward:/Manage_Product";
+		return "redirect:/Manage_Product";
 	}
 	
-	@RequestMapping("/Manage_Product_Delete/{id}")
-	public String deleteProduct(@PathVariable("id") String id, Model model) throws Exception
+	@GetMapping("/Manage_Product_Delete/{id}")
+	public String deleteProduct(@PathVariable("id") int id)
 	{
 		log.debug("Starting of the method deleteProduct");
 		
-		boolean flag = productDAO.deleteProduct(product);
-
-		String msg = "Successfully deleted the product";
-		
-		if (flag != true) 
-		{
-			msg = "Not able to delete the product";
-		}
-		model.addAttribute("Message", msg);
-		
+		product.setId(id);
+		productDAO.deleteProduct(product);
+	
 		log.debug("Ending of the method deleteProduct");
-		return "forward:/Manage_Product";
+		return "redirect:/Manage_Product";
 	}
 	
-	@GetMapping("/Manage_Product_Edit/{id}")
-	public String editProduct(@PathVariable("id") String id, Model model)
+	@RequestMapping(value= "/Manage_Product_Edit/{id}", method = RequestMethod.GET)
+	public String editProduct(@PathVariable("id") int id, RedirectAttributes attributes)
 	{
 		log.debug("Starting of the method editProduct");
 
-		productDAO.updateProduct(product);
-		product = productDAO.getProductByID(id);
-		
-		model.addAttribute("product", product);
+		attributes.addFlashAttribute("product", this.productDAO.getProductByID(id));
 		
 		log.debug("Ending of the method editProduct");
-		return "forward:/Manage_Product";
+		return "redirect:/Manage_Product";
 	}
+	
+	@RequestMapping(value= "/Manage_Product_Update")
+	public String updateProduct(@ModelAttribute("product") Product product) 
+	{
+		log.debug("Starting of the method updateProduct");
+		
+		productDAO.updateProduct(product);
+		
+		log.debug("Ending of the method updateProduct");
+		return "redirect:/Manage_Product";
+	}	
 }

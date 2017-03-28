@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -90,54 +91,16 @@ public class UserController {
 		return modelAndView;
 	}
 */
-	/*@RequestMapping("/Logout")
-	public ModelAndView logout() {
-		
-		log.debug("Starting of the method secure_logout");
-		
-		ModelAndView modelAndView = new ModelAndView("/Home");
-		
-		session.invalidate(); // will remove the attributes which are added to session
-		session.setAttribute("category", category);
-		session.setAttribute("categoryList", categoryDAO.getAllCategories());
-
-		modelAndView.addObject("logoutMessage", "You are successfully logged out");
-		modelAndView.addObject("loggedOut", "true");
-		
-		log.debug("Ending of the method secure_logout");
-		return modelAndView;
-	}*/
 
 	@RequestMapping(value = "/Registration", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute User user) 
+	public String registerUser(@ModelAttribute User user, Model model) 
 
 	{
 		user.setEnabled(true);
 		user.setRole("ROLE_USER");
 		userDAO.createUser(user);
-		return "Home";
+		model.addAttribute("SuccessRegister", "Successfully Registered. Thank You !!!");
 		
-
-	
+		return "Home";
 	}
-
-	/*//authentication-failure-forward-url="/loginError"
-	@RequestMapping(value = "/loginError", method = RequestMethod.GET)
-	public String loginError(Model model) {
-		
-		log.debug("Starting of the method loginError");
-		model.addAttribute("errorMessage", "Invalid Credentials.  Please try again.");
-		log.debug("Ending of the method loginError");
-		return "Home";
-
-	}
-	//<security:access-denied-handler error-page="/accessDenied" />
-	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
-	public String accessDenied(Model model) {
-		
-		log.debug("Starting of the method accessDenied");
-		model.addAttribute("errorMessage", "You are not authorized to access this page");
-		log.debug("Ending of the method accessDenied");
-		return "Home";
-	}*/
 }
