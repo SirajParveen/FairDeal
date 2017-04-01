@@ -37,21 +37,16 @@
         </ul>
 		
 		 <div class="container">
-	 
-
      <security:authorize access="!isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
       <li><a href="login"><b>Login </b><span class="glyphicon glyphicon-user"></span> </a>
       <li><a href="Registration"><b>New Customer? Register Here </b><span class="glyphicon glyphicon-log-in"></span> </a>
         </ul>
          </security:authorize>
- 
-         
-        
-        <div class="container">
+      
       <security:authorize access="isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
-    <li><a href="secure_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
+    <li><a href="perform_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
     </li>
     </ul>
 	</security:authorize>
@@ -62,10 +57,10 @@
     </li>
     </ul>
     </c:if>
+    </div>
 		
+
 </div>
-</div>		
- </div>
  </nav>
  
 <jsp:include page="CategoryMenu.jsp"></jsp:include> 

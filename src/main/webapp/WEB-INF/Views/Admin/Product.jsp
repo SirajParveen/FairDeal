@@ -36,7 +36,7 @@ ${Message}
 <c:url var="addAction" value="/Manage_Product_Update"></c:url>
 </c:if>
 
-	<form:form action="${addAction}" commandName="product" method="post">
+	<form:form action="${addAction}" commandName="product"  method="post" enctype="multipart/form-data" >
 
 <table border="7">
 <thead>
@@ -81,12 +81,16 @@ ${Message}
 								<form:option class="form-control" value="${supplier.id}">${supplier.name}</form:option>
 							</c:forEach>
 								</form:select></td></tr>
-		 <%-- <tr>
-					<td>Image:</td>
+								
+					<%-- <tr>
+					<td>Image: </td>
 					<td><form:input type="file"
 							class=" btn btn-default btn-block form-control" path="image"
-							required="true" /></td>
-				</tr>  	 --%>
+							required="true" /></td> --%>
+							
+       
+							
+										
 <tr>
 <td colspan="2"><c:if test="${!empty product.name}"><input type="submit" value="<spring:message text="Update Product"/>" />
 	</c:if>
@@ -110,6 +114,7 @@ ${Message}
 			<th width="120">Description</th>
 			<th width="120">Category_id</th>
 			<th width="120">Supplier_id</th>
+			<!-- <th width="60">Image</th> -->
 			<th width="60">Edit</th>
 			<th width="60">Delete</th>
 			</tr>
@@ -121,6 +126,11 @@ ${Message}
 			<td>${product.description}</td>
 			<td>${product.category_id}</td>
 			<td>${product.supplier_id}</td>
+
+			<%-- <td><div class="thumbnail">
+			<img height="100px" width="100px" alt="${product.id}"src="<c:url value="/resources/Images/${product.id}.jpg"></c:url>">
+			</div>  --%>
+			
 			<td><a href="<c:url value='/Manage_Product_Edit/${product.id}' />">Edit</a></td>
 					
 			<td><a href="<c:url value='/Manage_Product_Delete/${product.id}' />">Delete</a></td>

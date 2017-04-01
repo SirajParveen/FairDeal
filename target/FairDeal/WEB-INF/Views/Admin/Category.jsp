@@ -40,19 +40,19 @@ ${Message}
 <table border="7">
 <thead>
 
-<%-- <tr>
+<tr>
 
 <td><form:label path="id"><spring:message text="id" /></form:label></td>
 
 	<c:choose>
 	<c:when test="${not empty category.id} ">
-	<td><form:input path="id"  readonly="true" /></td>
+	<td><form:hidden path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" required="true" title="id should contain 5 to 20 characters" /></td>
+	<td><form:input path="id" required="true" /></td>
 	</c:otherwise>
 	</c:choose>
- --%>
+
 <tr>
 <td><form:label path="name"><spring:message text="Name" /></form:label></td>
 <td><form:input path="name" required="true" title="Name should not be empty"/></td>

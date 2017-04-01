@@ -42,7 +42,7 @@ ${Message}
 <table border="7">
 <thead>
 
-<%-- <tr>
+<tr>
 
 <td><form:label path="id"><spring:message text="id" /></form:label></td>
 
@@ -51,9 +51,9 @@ ${Message}
 	<td><form:input path="id"  readonly="true" /></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td>
+	<td><form:input path="id" required="true" /></td>
 	</c:otherwise>
-	</c:choose> --%>
+	</c:choose>
 
 <tr>
 <td><form:label path="name"><spring:message text="Name" /></form:label></td>

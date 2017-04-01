@@ -132,13 +132,22 @@ public class HomeController {
 		return modelAndView;
 	}*/
 	
-	/*@RequestMapping("/Logout")
+/*	@RequestMapping("/secure_logout")
 	public ModelAndView Logout()
 	{
 		
 		ModelAndView modelAndView = new ModelAndView("/Home");
-		//session.invalidate();
+		modelAndView.addObject("/login");
+		session.invalidate();
 		session.removeAttribute("LoginMessage");
+		
+		session.setAttribute("product", product);
+		session.setAttribute("supplier", supplier);
+		
+		session.setAttribute("categoryList", categoryDAO.getAllCategories());
+		session.setAttribute("productList", productDAO.getAllProducts());
+		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
+		
 		return modelAndView;
 	}*/
 	

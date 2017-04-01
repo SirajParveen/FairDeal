@@ -36,24 +36,24 @@ ${Message}
 <c:url var="addAction" value="/Manage_Product_Update"></c:url>
 </c:if>
 
-	<form:form action="${addAction}" commandName="product" method="post">
+	<form:form action="${addAction}" commandName="product"  method="post" enctype="multipart/form-data" >
 
 <table border="7">
 <thead>
 
-<%-- <tr>
+<tr>
 
 <td><form:label path="id"><spring:message text="id" /></form:label></td>
 
 	<c:choose>
 	<c:when test="${not empty product.id} ">
-	<td><form:input path="id"  readonly="true" /></td>
+	<td><form:hidden path="id"  readonly="true"/></td>
 	</c:when>
 	<c:otherwise>
-	<td><form:input path="id" pattern=".{5,20}" required="true" title="id should contain 5 to 20 characters" /></td>
+	<td><form:input path="id" required="true" /></td>
 	</c:otherwise>
 	</c:choose>
-	</tr> --%>
+	</tr>
 
 <tr>
 <td><form:label path="name"><spring:message text="Name" /></form:label></td>
@@ -70,21 +70,27 @@ ${Message}
 <td><form:input path="description" required="true" title="Enter Description"/></td>
 </tr>
 
-<tr>
-<td><form:label path="category_id"><spring:message text="Category_id" /></form:label></td>
-<td><form:input path="category_id" required="true" title="Enter Category_id"/></td>
-</tr>
+<tr><td>Category ID:</td><td><form:select path="category_id" required="true"><spring:message text="Category_id"/>
+				<c:forEach items="${categoryList}" var="category">
+								<form:option class="form-control" value="${category.id}">${category.name}</form:option>
+							</c:forEach>
+								</form:select></td></tr>
 
-<tr>
-<td><form:label path="supplier_id"><spring:message text="Supplier_id" /></form:label></td>
-<td><form:input path="supplier_id" required="true" title="Enter Supplier_id"/></td>
-</tr>
-		 <%-- <tr>
-					<td>Image:</td>
+<tr><td>Supplier ID:</td><td><form:select path="supplier_id" required="true"><spring:message text="Supplier_id"/>
+				<c:forEach items="${supplierList}" var="supplier">
+								<form:option class="form-control" value="${supplier.id}">${supplier.name}</form:option>
+							</c:forEach>
+								</form:select></td></tr>
+								
+					<tr>
+					<td>Image: </td>
 					<td><form:input type="file"
 							class=" btn btn-default btn-block form-control" path="image"
 							required="true" /></td>
-				</tr>  	 --%>
+							
+       
+							
+										
 <tr>
 <td colspan="2"><c:if test="${!empty product.name}"><input type="submit" value="<spring:message text="Update Product"/>" />
 	</c:if>
@@ -108,6 +114,7 @@ ${Message}
 			<th width="120">Description</th>
 			<th width="120">Category_id</th>
 			<th width="120">Supplier_id</th>
+			<th width="60">Image</th>
 			<th width="60">Edit</th>
 			<th width="60">Delete</th>
 			</tr>
@@ -119,6 +126,11 @@ ${Message}
 			<td>${product.description}</td>
 			<td>${product.category_id}</td>
 			<td>${product.supplier_id}</td>
+
+			<td><div class="thumbnail">
+			<img height="100px" width="100px" alt="${product.id}"src="<c:url value="/resources/Images/${product.id}.jpg"></c:url>">
+			</div> 
+			
 			<td><a href="<c:url value='/Manage_Product_Edit/${product.id}' />">Edit</a></td>
 					
 			<td><a href="<c:url value='/Manage_Product_Delete/${product.id}' />">Delete</a></td>

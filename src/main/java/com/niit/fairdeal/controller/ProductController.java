@@ -1,5 +1,11 @@
 package com.niit.fairdeal.controller;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.niit.fairdeal.dao.ProductDAO;
@@ -25,12 +33,15 @@ public class ProductController {
 
 	@Autowired
 	private Product product;
+	
+	private Path path;
 
-	@RequestMapping(value = "/Manage_Product_Create", method = RequestMethod.POST)
-	public String createProduct(@ModelAttribute("product") Product product, Model model)
+	@PostMapping(value= "/Manage_Product_Create")
+	
+	@RequestMapping(value="/Manage_Product_Create", method= RequestMethod.POST)
+	public String createProduct(@ModelAttribute("product") Product product, Model model, HttpServletRequest request)
 	{	
 		log.debug(" Starting of the method createProduct");
-		log.info("id: " +product.getId());
 		
 		if(productDAO.createProduct(product) == true)
 		{
@@ -40,6 +51,22 @@ public class ProductController {
 		{
 			model.addAttribute("Message", "Product Not Created");
 		}
+		
+		MultipartFile file=product.getImage();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        path = Paths.get(rootDirectory + "\\resources\\Images\\"+product.getId()+".jpg");
+        if (file != null && !file.isEmpty()) {
+            try {
+            	System.out.println("Image Saving Start");
+            	file.transferTo(new File(path.toString()));
+            	System.out.println("Image Saved");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error");
+                throw new RuntimeException("item image saving failed.", e);
+            }
+        }
+		
 		model.addAttribute("product",product);
 		model.addAttribute("productList",productDAO.getAllProducts());
 		model.addAttribute("isAdminClickedProduct", "true");
@@ -60,7 +87,7 @@ public class ProductController {
 		return "redirect:/Manage_Product";
 	}
 	
-	@RequestMapping(value= "/Manage_Product_Edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value= "/Manage_Product_Edit/{id}")
 	public String editProduct(@PathVariable("id") int id, RedirectAttributes attributes)
 	{
 		log.debug("Starting of the method editProduct");
@@ -72,12 +99,25 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value= "/Manage_Product_Update")
-	public String updateProduct(@ModelAttribute("product") Product product) 
+	public String updateProduct(@ModelAttribute("product") Product product, HttpServletRequest request) 
 	{
 		log.debug("Starting of the method updateProduct");
 		
 		productDAO.updateProduct(product);
-		
+		MultipartFile file=product.getImage();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        path = Paths.get(rootDirectory + "\\resources\\Images\\"+product.getId()+".jpg");
+        if (file != null && !file.isEmpty()) {
+            try {
+            	System.out.println("Image Saving Start");
+            	file.transferTo(new File(path.toString()));
+            	System.out.println("Image Saved");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error");
+                throw new RuntimeException("Item image saving failed.", e);
+            }
+        }
 		log.debug("Ending of the method updateProduct");
 		return "redirect:/Manage_Product";
 	}	

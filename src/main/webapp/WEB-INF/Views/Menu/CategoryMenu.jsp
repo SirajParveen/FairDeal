@@ -31,10 +31,9 @@
  	</ul>
  	
         <ul class="nav navbar-nav navbar-right">
-     <li><a href="#">${LoginMessage}</a></li></ul>
+     <li><h2><a href="#">${LoginMessage}</a></h2></li></ul>
     
     </div>
-	${category.products}
     
 </nav>
 </body>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.fairdeal.dao.CartDAO;
@@ -75,13 +76,14 @@ public class SpringSecurityController {
 			return "Home";
 		}
 		
-		@RequestMapping(value = "login_session_attribute", method = RequestMethod.GET)
-		public ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		@RequestMapping(value= "/login_session_attribute", method= RequestMethod.GET)
+		public @ResponseBody ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			log.debug("starting of the method validate");
 			ModelAndView mv = new ModelAndView("/Home");
 			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String username = auth.getName();
+			System.err.println("username: "+auth);
 			session.setAttribute("loggedInUser", username);
 
 			if (request.isUserInRole("ROLE_ADMIN")) {
@@ -99,7 +101,7 @@ public class SpringSecurityController {
 				mv.addObject("cartSize", cartList);
 				mv.addObject("totalAmount", cartDAO.getTotalAmount(username));
 			}
-			
+			session.setAttribute("LoginMessage", "Welcome "+username);
 			log.debug("Ending of the method validate");
 			return mv;
 		}
@@ -141,14 +143,17 @@ public class SpringSecurityController {
 		
 		}*/
 		
-		@RequestMapping("/secure_logout")
+		@RequestMapping("/perform_logout")
 		public ModelAndView secureLogout()
 		{
 			log.debug("Starting of the method secureLogout");
+			
 			//what you attach to session at the time of login need to remove
 			session.invalidate();
+			
+			System.err.println("Secure Logout Method Body1");
 		
-			ModelAndView modelAndView = new ModelAndView("Home");
+			ModelAndView modelAndView = new ModelAndView("/Home");
 			
 			//After logout user should be able to browse category and product
 			//as we invalidate() session, need to load these data again
@@ -161,9 +166,10 @@ public class SpringSecurityController {
 			session.setAttribute("productList", productDAO.getAllProducts());
 			session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
 			
+			System.err.println("Secure Logout Method Body2");
+			
 			log.debug("Ending of the method secureLogout");
 			return modelAndView;
-			
 			//or simply remove only one attribute from session
 			//session.removeAttribute("loggedInUser");//you no need to load category,supplier, product
 		}		

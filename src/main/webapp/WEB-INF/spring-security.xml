@@ -18,7 +18,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	
 		<!-- intercept URL starting-->
 
-		<security:intercept-url pattern="/Manage*/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/Manage/**" access="hasRole('ROLE_ADMIN')" />
 		
 		<security:intercept-url pattern="/Cart/**" access="hasRole('ROLE_USER')" />
 		
@@ -26,12 +26,12 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		
 		<security:access-denied-handler error-page="/accessDenied"/>
 		
-		<security:csrf/>
+		<security:csrf/> 
 
-		<security:form-login login-page="/Login" default-target-url="/login_session_attribute" login-processing-url="/perform_login"
-			authentication-failure-url="/loginError" />
+		<security:form-login login-page="/Login" default-target-url="/" login-processing-url="/perform_login"
+			authentication-failure-url="/loginError" authentication-success-forward-url="/login_session_attribute" />
 
-		<security:logout logout-url="/secure_logout" invalidate-session="true" logout-success-url="/Home" />
+		<security:logout logout-url="/perform_logout" invalidate-session="true" logout-success-url="/" delete-cookies="JSESSIONID"/>
 
 		<security:csrf disabled="true" />
 
