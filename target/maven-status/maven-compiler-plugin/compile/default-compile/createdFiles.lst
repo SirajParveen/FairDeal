@@ -1,11 +1,13 @@
 com\niit\fairdeal\controller\CartController.class
+com\niit\fairdeal\controller\MultiPartController.class
+com\niit\fairdeal\controller\SpringSecurityController.class
+com\niit\fairdeal\util\FileUtil.class
+com\niit\handler\CheckoutHandler.class
 com\niit\fairdeal\controller\ProductController.class
 com\niit\fairdeal\controller\UserController.class
 com\niit\fairdeal\exception\ShoppingCartExceptionHandler.class
 com\niit\fairdeal\controller\CategoryController.class
 com\niit\fairdeal\controller\HomeController.class
 com\niit\fairdeal\controller\SupplierController.class
-com\niit\fairdeal\controller\MultiPartController.class
-com\niit\fairdeal\controller\SpringSecurityController.class
-com\niit\fairdeal\util\FileUtil.class
+com\niit\model\Cart.class
 com\niit\fairdeal\controller\AdminController.class

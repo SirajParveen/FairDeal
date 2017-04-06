@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Show Product</title>
+<title>Show Product Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -27,7 +27,7 @@ width:100%;
 
 	<div class="container">
 		<c:forEach items="${IndividualProduct}" var="product">
-		<h2><c:out value="${product.name }"/></h2>
+		<h2><c:out value="${product.name}"/></h2>
 			<div class="col-xs-6 w3-animate-left">
 				<div class="img">
 					<img  height="300px" width="300px" alt="${product.id}" src="<c:url value="/resources/images/${product.id}.jpg"></c:url>">

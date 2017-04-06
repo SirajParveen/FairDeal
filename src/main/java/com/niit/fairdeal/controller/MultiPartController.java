@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MultiPartController {
 
-
 	public static void upload(String path,MultipartFile file,String filename)
 	{
 		if(!file.isEmpty())
@@ -22,16 +21,6 @@ public class MultiPartController {
 			{
 				try
 				{
-					/*inputStream=file.getInputStream();
-					outputStream=new FileOutputStream(path+filename);
-					int readBytes=0;
-					byte[] buffer= new byte[1024];
-					while((readBytes=inputStream.read(buffer,0,1024))!=-1)
-					{
-						outputStream.write(buffer, 0, readBytes);
-					}
-					System.out.println("File Uploaded");
-					System.out.println(path+filename);*/
 					file.transferTo(new File(path));
 				}
 				catch (Exception e)

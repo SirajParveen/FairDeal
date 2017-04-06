@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  <title>Bootstrap Case</title>
+  <title>Category Menu Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,13 +20,9 @@
  
  	<ul class="nav navbar-nav" role="tablist">
  	<c:forEach items="${categoryList}" var="category">
- 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">${category.name}<span class="caret"></span></a>
+ 	<li class="dropdown"><a class="dropdown-toggle"  href="navproducts/${category.id}">${category.name}</a>
  	
- 	<ul class="dropdown-menu" role="menu">
- 	<c:forEach items="${category.products}" var="product">
- 	<li><a href="Manage_Product/get/${product.id}">${product.name}</a></li>
- 	</c:forEach>
- 	</ul></li>
+ 	</li>
  	</c:forEach>
  	</ul>
  	

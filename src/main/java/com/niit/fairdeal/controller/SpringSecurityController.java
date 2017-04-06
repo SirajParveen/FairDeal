@@ -1,28 +1,26 @@
 package com.niit.fairdeal.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.fairdeal.dao.CartDAO;
 import com.niit.fairdeal.dao.CategoryDAO;
-import com.niit.fairdeal.dao.ProductDAO;
 import com.niit.fairdeal.dao.SupplierDAO;
-import com.niit.fairdeal.domain.Category;
+import com.niit.fairdeal.dao.UserDAO;
 import com.niit.fairdeal.domain.Product;
-import com.niit.fairdeal.domain.Supplier;
+import com.niit.fairdeal.domain.User;
 
 @Controller
 public class SpringSecurityController {
@@ -36,29 +34,18 @@ public class SpringSecurityController {
 	private CategoryDAO categoryDAO;
 
 	@Autowired
-	private Category category;
-
-	@Autowired
 	private SupplierDAO supplierDAO;
-
-	@Autowired
-	private Supplier supplier;
 	
 	@Autowired
-	private ProductDAO productDAO;
-	
-	@Autowired
-	private Product product;
+	private UserDAO userDAO;
 
 	@Autowired
 	private HttpSession session;
-
-	private Object cart;
-	
+		
 		//authentication-failure-forward-url="/loginError"
 		@RequestMapping(value = "/loginError", method = RequestMethod.GET)
-		public String loginError(Model model) {
-			
+		public String loginError(Model model) 
+		{
 			log.debug("Starting of the method loginError");
 			model.addAttribute("errorMessage", "Invalid Credentials !!! Please try again.");
 			model.addAttribute("invalidCredentials", "true");
@@ -75,9 +62,9 @@ public class SpringSecurityController {
 			log.debug("Ending of the method accessDenied");
 			return "Home";
 		}
-		
-		@RequestMapping(value= "/login_session_attribute", method= RequestMethod.GET)
-		public @ResponseBody ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		/*
+		@RequestMapping("/login_session_attribute")
+		public ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			log.debug("starting of the method validate");
 			ModelAndView mv = new ModelAndView("/Home");
 			
@@ -104,11 +91,14 @@ public class SpringSecurityController {
 			session.setAttribute("LoginMessage", "Welcome "+username);
 			log.debug("Ending of the method validate");
 			return mv;
-		}
+		}*/
 		
 		
-		/*@RequestMapping(value = "/login_session_attribute")
+		@RequestMapping(value = "/login_session_attribute")
 		public String login_session_attribute(HttpSession session,Model model) {
+			
+			log.debug("Starting of the method login_session_attribute");
+			
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			User user = userDAO.getUserByName(username);
 			session.setAttribute("userid", user.getId());
@@ -118,7 +108,9 @@ public class SpringSecurityController {
 			@SuppressWarnings("unchecked")
 			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext()
 			.getAuthentication().getAuthorities();
+			
 			String role="ROLE_USER";
+			
 			for (GrantedAuthority authority : authorities) 
 			{
 			  
@@ -126,47 +118,32 @@ public class SpringSecurityController {
 			     {
 			    	 session.setAttribute("UserLoggedIn", "true");
 			    	 session.setAttribute("cartsize",cartDAO.cartsize((Integer)session.getAttribute("userid")));
-			    	 session.setAttribute("cartSize", cartDAO.get((Integer) session.getAttribute(username)));
 			    	 return "redirect:/";
 			     }
 			     else 
 			     {
-			    	 session.setAttribute("Administrator", "true");
+			    	 session.setAttribute("isAdmin", "true");
 			    	model.addAttribute("product",  new Product());
-			    	 model.addAttribute("ProductPageClicked", "true");
+			    	 model.addAttribute("isUserClickedProduct", "true");
 			    	 model.addAttribute("supplierList",supplierDAO.getAllSuppliers());
 			    	 model.addAttribute("categoryList",categoryDAO.getAllCategories());
-				 return "/Admin";
+				 return "/Admin/AdminHome";
 			     }
 		}
-			return "/home";
+			log.debug("Ending of the method login_session_attribute");
+			return "/Home";
 		
-		}*/
+		}
 		
 		@RequestMapping("/perform_logout")
-		public ModelAndView secureLogout()
+		public ModelAndView performLogout()
 		{
 			log.debug("Starting of the method secureLogout");
 			
 			//what you attach to session at the time of login need to remove
 			session.invalidate();
-			
-			System.err.println("Secure Logout Method Body1");
 		
 			ModelAndView modelAndView = new ModelAndView("/Home");
-			
-			//After logout user should be able to browse category and product
-			//as we invalidate() session, need to load these data again
-			
-			session.setAttribute("category", category);
-			session.setAttribute("product", product);
-			session.setAttribute("supplier", supplier);
-			
-			session.setAttribute("categoryList", categoryDAO.getAllCategories());
-			session.setAttribute("productList", productDAO.getAllProducts());
-			session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
-			
-			System.err.println("Secure Logout Method Body2");
 			
 			log.debug("Ending of the method secureLogout");
 			return modelAndView;

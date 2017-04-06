@@ -14,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,26 +33,15 @@ public class ProductController {
 	private Product product;
 	
 	private Path path;
-
-	@PostMapping(value= "/Manage_Product_Create")
 	
-	@RequestMapping(value="/Manage_Product_Create", method= RequestMethod.POST)
-	public String createProduct(@ModelAttribute("product") Product product, Model model, HttpServletRequest request)
-	{	
-		log.debug(" Starting of the method createProduct");
-		
-		if(productDAO.createProduct(product) == true)
-		{
-			model.addAttribute("Message", "Successfully Created the Product");
-		}
-		else
-		{
-			model.addAttribute("Message", "Product Not Created");
-		}
-		
+	@RequestMapping(value="/Manage_Product_Create")
+	public String createProduct(@ModelAttribute("product") Product product,HttpServletRequest request,Model m)
+	{
+		log.debug("Starting of the method createProduct");
+		productDAO.createProduct(product);
 		MultipartFile file=product.getImage();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\resources\\Images\\"+product.getId()+".jpg");
+        path = Paths.get(rootDirectory + "\\resources\\images\\"+product.getId()+".jpg");
         if (file != null && !file.isEmpty()) {
             try {
             	System.out.println("Image Saving Start");
@@ -63,15 +50,10 @@ public class ProductController {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error");
-                throw new RuntimeException("item image saving failed.", e);
+                throw new RuntimeException("Item Image Saving Failed...!!!", e);
             }
         }
-		
-		model.addAttribute("product",product);
-		model.addAttribute("productList",productDAO.getAllProducts());
-		model.addAttribute("isAdminClickedProduct", "true");
-		
-		log.debug(" Ending of the method createProduct");
+        log.debug("Ending of the method createProduct");
 		return "redirect:/Manage_Product";
 	}
 	
@@ -92,21 +74,21 @@ public class ProductController {
 	{
 		log.debug("Starting of the method editProduct");
 
-		attributes.addFlashAttribute("product", this.productDAO.getProductByID(id));
+		attributes.addFlashAttribute("product", this.productDAO.getproduct(id));
 		
 		log.debug("Ending of the method editProduct");
 		return "redirect:/Manage_Product";
 	}
 	
 	@RequestMapping(value= "/Manage_Product_Update")
-	public String updateProduct(@ModelAttribute("product") Product product, HttpServletRequest request) 
+	public String updateProduct(@ModelAttribute("product") Product product, HttpServletRequest request,Model m) 
 	{
 		log.debug("Starting of the method updateProduct");
 		
 		productDAO.updateProduct(product);
 		MultipartFile file=product.getImage();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\resources\\Images\\"+product.getId()+".jpg");
+        path = Paths.get(rootDirectory + "\\resources\\images\\"+product.getId()+".jpg");
         if (file != null && !file.isEmpty()) {
             try {
             	System.out.println("Image Saving Start");
@@ -115,7 +97,7 @@ public class ProductController {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error");
-                throw new RuntimeException("Item image saving failed.", e);
+                throw new RuntimeException("Item Image Saving Failed...!!!", e);
             }
         }
 		log.debug("Ending of the method updateProduct");

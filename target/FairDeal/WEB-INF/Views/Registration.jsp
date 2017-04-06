@@ -73,7 +73,7 @@ document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg
 <body>
 
 <script>
-document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg')";
+document.body.style.backgroundImage = "url('resources/images/BackgroundImage.jpg')";
 </script>
 
 <jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
@@ -90,22 +90,22 @@ document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg
 <form>
   <div class="group">
     <form:label path="name"><spring:message var="name" /></form:label>
-	<form:input path="name" required="true" /><span class="highlight"></span><span class="bar"></span>
+	NAME : <form:input path="name" required="true" /><span class="highlight"></span><span class="bar"></span>
   </div>
     <div class="group">
-   <form:label path="password"><spring:message text="password" /></form:label>
-	<form:input path="password" required="true" />
+   <form:label path="password"><spring:message var="password" /></form:label>
+	PASSWORD : <form:input path="password" required="true" /><span class="highlight"></span><span class="bar"></span>
   </div>
     <div class="group">
-    <form:label path="contact"><spring:message text="contact" /></form:label>
-	<form:input path="contact" required="true" />
+    <form:label path="contact"><spring:message var="contact" /></form:label>
+	CONTACT : <form:input path="contact" required="true" /><span class="highlight"></span><span class="bar"></span>
   </div>
   <div class="group">
-   <form:label path="mail"><spring:message text="mail" /></form:label>
-	<form:input path="mail" required="true" />
+   <form:label path="mail"><spring:message var="mail" /></form:label>
+	MAIL : <form:input path="mail" required="true" /><span class="highlight"></span><span class="bar"></span>
   </div>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-   <input type="submit" class="btn btn-default" value="Register">
+   <input type="submit" class="btn btn-default" value="Register" style="background-color: yellow;">
 </form>
 <footer><a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
   <p><a href="http://www.polymer-project.org/" target="_blank"></a></p>
@@ -114,10 +114,7 @@ document.body.style.backgroundImage = "url('resources/Images/BackgroundImage.jpg
 
     <script src="resources/registration/js/index.js"></script>
     
-	</form:form>
-	
-	<jsp:include page="Menu/Footer.jsp"></jsp:include>
-	
+	</form:form>	
 </body>
 </html>
  

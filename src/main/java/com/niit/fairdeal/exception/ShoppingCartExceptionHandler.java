@@ -26,7 +26,7 @@ private static final Logger log = LoggerFactory.getLogger(ShoppingCartExceptionH
 		
 		ModelAndView mv = new ModelAndView("error");
 		// ModelAndView mv = new ModelAndView("error");
-	    mv.addObject("message", "It seems one of the table OR few fields does not exist in DB. "
+	    mv.addObject("Message", "It seems one of the table OR few fields does not exist in DB. "
 	      		+ "  See the logger for more information");
 	    mv.addObject("errorMessage", e.getMessage());
 	    
@@ -41,7 +41,7 @@ public ModelAndView dbServerNotStarted( Exception e)
 	
 	  ModelAndView mv = new ModelAndView("error");
 			// ModelAndView mv = new ModelAndView("error");
-      mv.addObject("message", "It seems Database server not started");
+      mv.addObject("Message", "It seems Database server not started");
       mv.addObject("errorMessage", e.getMessage());
 	
     log.debug("Ending of the method dbServerNotStarted ");    
@@ -68,7 +68,7 @@ public ModelAndView dbServerNotStarted( Exception e)
 		  
 		  ModelAndView mv = new ModelAndView("error");
 			// ModelAndView mv = new ModelAndView("error");
-            mv.addObject("message", "No handler found.  Invalid URL See the logger for more information");
+            mv.addObject("Message", "No handler found.  Invalid URL See the logger for more information");
             
             mv.addObject("errorMessage", e.getMessage());  
             
@@ -84,7 +84,7 @@ public ModelAndView dbServerNotStarted( Exception e)
 	      
 		  ModelAndView mv = new ModelAndView("error");
 			// ModelAndView mv = new ModelAndView("error");
-          mv.addObject("message", "Not able to connect to server.  please contact administration");
+          mv.addObject("Message", "Not able to connect to server.  please contact administration");
   	      mv.addObject("errorMessage", e.getMessage());
 		
   	    log.debug("Ending of the method handleIOException ");  

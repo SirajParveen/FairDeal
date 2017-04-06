@@ -32,19 +32,19 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="resources/Images/ElectronicsCategory.jpg" alt="ElectronicsCategory" width="460" height="345">
+        <img src="resources/images/ElectronicsCategory.jpg" alt="ElectronicsCategory" width="460" height="345">
       </div>
 
       <div class="item">
-        <img src="resources/Images/MenCategory.jpg" alt="MenCategory" width="460" height="345">
+        <img src="resources/images/MenCategory.jpg" alt="MenCategory" width="460" height="345">
       </div>
     
       <div class="item">
-        <img src="resources/Images/WomenCategory.jpg" alt="WomenCategory" width="460" height="345">
+        <img src="resources/images/WomenCategory.jpg" alt="WomenCategory" width="460" height="345">
       </div>
 
       <div class="item">
-        <img src="resources/Images/KidsCategory.jpg" alt="KidsCategory" width="460" height="345">
+        <img src="resources/images/KidsCategory.jpg" alt="KidsCategory" width="460" height="345">
       </div>
     </div>
 

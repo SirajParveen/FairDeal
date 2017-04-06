@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
+<title>Admin Home Page</title>
+ <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,12 +17,25 @@
 
 <body>
 
-	<div id="AdminHome">
-		<a href="Manage_Category">Manage Category</a> &nbsp; &nbsp; <a
-			href="Manage_Supplier">Manage Supplier</a> &nbsp; &nbsp; <a
-			href="Manage_Product">Manage Product</a> &nbsp; &nbsp;
+<script>
+document.body.style.backgroundImage = "url('resources/images/BackgroundImage.jpg')";
+</script>
 
-	</div>
+<jsp:include page="../Menu/AdminBarFirst.jsp"></jsp:include>
+<jsp:include page="../Menu/CategoryMenu.jsp"></jsp:include>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       </div>
+    <ul class="nav navbar-nav">
+          <li><a class="navbar-brand" style="font-size:15px;"><span class="glyphicon glyphicon-user"></span> WELCOME ADMIN </a></li>
+       <li><a class="active" href="Manage_Category">Category</a></li>
+      <li><a href="Manage_Product">Product</a></li>
+      <li><a href="Manage_Supplier">Supplier</a></li> 
+      </ul>
+  </div>
+</nav>
 
 	<c:if test="${isAdminClickedCategory == true}">
 		<jsp:include page="Category.jsp"></jsp:include>

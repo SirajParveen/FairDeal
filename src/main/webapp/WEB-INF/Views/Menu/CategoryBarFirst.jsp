@@ -3,7 +3,7 @@
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-  <title>Bootstrap Case</title>
+  <title></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
-      <li><a href="#"><img src="<c:url value="/resources/Images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="60px" height="60px" align="left"> </a>
+      <li><a href="Home"><img src="<c:url value="/resources/images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="60px" height="60px" align="left"> </a>
         </ul>
         
         <ul class="nav navbar-nav">
@@ -37,33 +37,29 @@
         </ul>
 		
 		 <div class="container">
-     <security:authorize access="!isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
+     <security:authorize access="!isAuthenticated()">
       <li><a href="login"><b>Login </b><span class="glyphicon glyphicon-user"></span> </a>
       <li><a href="Registration"><b>New Customer? Register Here </b><span class="glyphicon glyphicon-log-in"></span> </a>
+      </li>
+      </security:authorize>
         </ul>
-         </security:authorize>
       
-      <security:authorize access="isAuthenticated()">
     <ul class="nav navbar-nav navbar-right">
+    <security:authorize access="isAuthenticated()">
     <li><a href="perform_logout"><b>Logout </b><span class="glyphicon glyphicon-log-out"></span></a>
     </li>
-    </ul>
-	</security:authorize>
 
-    <c:if test="${isAdmin == false || isUserClickedCart == true}">
-    <ul class="nav navbar-nav navbar-right">
-    <li><a href="Cart"><b>MyCarts </b><span class="glyphicon glyphicon-shopping-cart"></span></a>
-    </li>
+    <li class="nav navbar-nav">
+    <li style="float: right"><a href="Cart" class="w3-hover-none w3-text-sand w3-hover-text-white"><b>MyCarts </b>
+  <i class="fa fa-shopping-cart"></i> <span class="w3-badge w3-white"></span></a></li>
+    </security:authorize>
     </ul>
-    </c:if>
     </div>
 		
 
 </div>
  </nav>
- 
-<jsp:include page="CategoryMenu.jsp"></jsp:include> 
 
 </body>
 </html>

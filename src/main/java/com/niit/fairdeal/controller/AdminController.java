@@ -48,6 +48,7 @@ public class AdminController {
 		
 		ModelAndView modelAndView = new ModelAndView("/Admin/AdminHome");
 	
+		modelAndView.addObject("Category", category);
 		modelAndView.addObject("isAdminClickedCategory", "true");
 		modelAndView.addObject("categoryList", categoryDAO.getAllCategories());
 

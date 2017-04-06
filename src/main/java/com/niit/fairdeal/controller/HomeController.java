@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.niit.fairdeal.dao.CategoryDAO;
 import com.niit.fairdeal.dao.ProductDAO;
@@ -23,7 +25,6 @@ public class HomeController {
 	
 	Logger log = LoggerFactory.getLogger(HomeController.class);
 	
-
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
@@ -49,7 +50,7 @@ public class HomeController {
 	@Autowired
 	private User user;
 	
-	//http://localhost:8080/FairDeal/
+	//http://localhost:8181/FairDeal/
 	@RequestMapping("/")
 	public ModelAndView showHomePage()
 	{	
@@ -60,11 +61,15 @@ public class HomeController {
 		session.setAttribute("category", category);
 		session.setAttribute("product", product);
 		session.setAttribute("supplier", supplier);
-		
 		session.setAttribute("user", user);
+		
 		session.setAttribute("categoryList", categoryDAO.getAllCategories());
 		session.setAttribute("productList", productDAO.getAllProducts());
 		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
+
+		
+		modelAndView.addObject("Clickedcatproduct", "true");
+		modelAndView.addObject("HideOthers","true");
 		
 		log.debug("Ending of the method showHomePage");
 		return modelAndView;
@@ -90,7 +95,6 @@ public class HomeController {
 	{
 		log.debug("Starting of the method showRegistrationPage");
 		
-		//Specifying which page you have to navigate
 		ModelAndView modelAndView = new ModelAndView("/Registration");
 		
 		modelAndView.addObject("user", user);
@@ -132,7 +136,7 @@ public class HomeController {
 		return modelAndView;
 	}*/
 	
-/*	@RequestMapping("/secure_logout")
+	/*@RequestMapping("/perform_logout")
 	public ModelAndView Logout()
 	{
 		
@@ -159,11 +163,44 @@ public class HomeController {
 		model.addAttribute("selectedProduct", selectedProduct);
 		model.addAttribute("user", new User());
 		
+		session.setAttribute("category", category);
+		session.setAttribute("product", product);
+		session.setAttribute("supplier", supplier);
+		session.setAttribute("user", user);
+		
+		session.setAttribute("categoryList", categoryDAO.getAllCategories());
+		session.setAttribute("productList", productDAO.getAllProducts());
+		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
+		
+		model.addAttribute("Clickedcatproduct", "true");
+		model.addAttribute("HideOthers","true");
+		
 		log.debug("Ending of the method reDirectToHome");
 		return "/Home";
 	}
 	
-	@RequestMapping("/Cart")
+	
+	 @RequestMapping(value ="ShowProduct/{id}")
+	    public String ShowProduct(@PathVariable("id") int id, RedirectAttributes attributes, Model m) 
+	 {
+		    log.debug("Starting of the method ShowProduct");
+	        m.addAttribute("UserClickedshowproduct", "true");
+	        m.addAttribute("IndividualProduct", productDAO.getproduct(id));
+	    	log.debug("Ending of the method ShowProduct");
+	        return "ShowProduct";
+	    }
+	 
+		@RequestMapping(value="navproducts/{id}")
+		public String navproduct(Model m,@PathVariable("id") int id,RedirectAttributes attributes)
+		{
+			log.debug("Starting of the method navproduct");
+			//attributes.addFlashAttribute("Clickedcatproduct", "true");
+			attributes.addFlashAttribute("navproducts", productDAO.navproduct(id));
+			log.debug("Ending of the method navproduct");
+			return "redirect:/";
+		}
+	
+	/*@RequestMapping("/Cart")
 	public ModelAndView showCartPage()
 	{
 		log.debug("Starting of the method showCartPage");
@@ -173,5 +210,5 @@ public class HomeController {
 		
 		log.debug("Ending of the method showCartPage");
 		return modelAndView;
-	}
+	}*/
 }
