@@ -47,10 +47,9 @@ public class SpringSecurityController {
 		public String loginError(Model model) 
 		{
 			log.debug("Starting of the method loginError");
-			model.addAttribute("errorMessage", "Invalid Credentials !!! Please try again.");
-			model.addAttribute("invalidCredentials", "true");
+			model.addAttribute("errorMessage", "Invalid Credentials !!! Please Try Again");
 			log.debug("Ending of the method loginError");
-			return "Home";
+			return "HomePage";
 		}
 		
 		//<security:access-denied-handler error-page="/accessDenied" />
@@ -60,39 +59,8 @@ public class SpringSecurityController {
 			log.debug("Starting of the method accessDenied");
 			model.addAttribute("errorMessage", "You are not authorized to access this page");
 			log.debug("Ending of the method accessDenied");
-			return "Home";
+			return "HomePage";
 		}
-		/*
-		@RequestMapping("/login_session_attribute")
-		public ModelAndView login_session_attribute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			log.debug("starting of the method validate");
-			ModelAndView mv = new ModelAndView("/Home");
-			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			String username = auth.getName();
-			System.err.println("username: "+auth);
-			session.setAttribute("loggedInUser", username);
-
-			if (request.isUserInRole("ROLE_ADMIN")) {
-
-				session.setAttribute("isAdmin", true);
-
-			} else {
-
-				session.setAttribute("isAdmin", false);
-				
-				mv.addObject("Cart", cart);
-				
-				int cartList = cartDAO.getAllCarts(username);
-				mv.addObject("cartList", cartList);
-				mv.addObject("cartSize", cartList);
-				mv.addObject("totalAmount", cartDAO.getTotalAmount(username));
-			}
-			session.setAttribute("LoginMessage", "Welcome "+username);
-			log.debug("Ending of the method validate");
-			return mv;
-		}*/
-		
 		
 		@RequestMapping(value = "/login_session_attribute")
 		public String login_session_attribute(HttpSession session,Model model) {
@@ -118,7 +86,7 @@ public class SpringSecurityController {
 			     {
 			    	 session.setAttribute("UserLoggedIn", "true");
 			    	 session.setAttribute("cartsize",cartDAO.cartsize((Integer)session.getAttribute("userid")));
-			    	 return "redirect:/";
+			    	 return "redirect:/HomePage";
 			     }
 			     else 
 			     {
@@ -131,8 +99,7 @@ public class SpringSecurityController {
 			     }
 		}
 			log.debug("Ending of the method login_session_attribute");
-			return "/Home";
-		
+			return "/HomePage";
 		}
 		
 		@RequestMapping("/perform_logout")
@@ -143,7 +110,7 @@ public class SpringSecurityController {
 			//what you attach to session at the time of login need to remove
 			session.invalidate();
 		
-			ModelAndView modelAndView = new ModelAndView("/Home");
+			ModelAndView modelAndView = new ModelAndView("/HomePage");
 			
 			log.debug("Ending of the method secureLogout");
 			return modelAndView;

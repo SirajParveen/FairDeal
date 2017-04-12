@@ -14,15 +14,13 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
 
 <script>
-document.body.style.backgroundImage = "url('resources/images/BackgroundImage.jpg')";
+document.body.style.backgroundImage = "url('resources/images/header.jpg')";
 </script>
 
 <jsp:include page="../Menu/AdminBarFirst.jsp"></jsp:include>
-<jsp:include page="../Menu/CategoryMenu.jsp"></jsp:include>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">

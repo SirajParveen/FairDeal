@@ -17,9 +17,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
   footer {
-    
     margin-top: 100px;
-    
 } 
 body {
 width:100%;
@@ -28,13 +26,19 @@ width:100%;
 </head>
 <body  style="background-color:#ffffff;">
 
+<script>
+document.body.style.backgroundImage = "url('resources/images/header.jpg')";
+</script>
+
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+
  <img  src="https://egybikers.com/images/dealershowroom/facebook%20profile%20pic.jpg" alt="logo" width="60px" height="60px" align="left">  
 
-     <nav class="navbar navbar-inverse navbar-fixed-top">
+     <nav class="navbar navbar-inverse">
   <div class="container-fluid"> 
   <div class="navbar-header" class=" pull-left">
   <a class="navbar-brand" style="font-size:27px;margin-top: -4px;">
-     <i class="fa fa-opencart" aria-hidden="true"></i> FairDeal </a>
+   </a>
     <sec:authorize access="isAuthenticated()">
      <a class="navbar-brand" style="font-size:15px;"><span class="glyphicon glyphicon-user"></span> WELCOME <sec:authentication property="principal.username"/> </a>
      
@@ -42,16 +46,7 @@ width:100%;
 </sec:authorize>
     </div>
      <ul class="nav navbar-nav navbar-right" style="margin-bottom:-2px;">    
-      <li><a href="Home">HOME</a></li>
-       <sec:authorize access="!isAuthenticated()">
-      <li><a href="Registration">REGISTER</a></li>
-      <li><a href="login">LOGIN</a></li>
-      </sec:authorize>
-	  <li><a href="CONTACTUS">CONTACT US</a></li>
-   <sec:authorize access="isAuthenticated()">
-   <li ><a href="Cart" >CART <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-	<li><a href="<c:url value="/perform_logout" />">LOGOUT <span class="glyphicon glyphicon-log-out"></span></a></li>
-</sec:authorize>
+	  <li><a href="#">CONTACT US</a></li>
 					  
    </ul>
    </div>

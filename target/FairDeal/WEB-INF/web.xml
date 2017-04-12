@@ -6,7 +6,7 @@
 
 	<display-name>FairDeal</display-name>
 	<welcome-file-list>
-		<welcome-file>Home.jsp</welcome-file>
+		<welcome-file>HomePage.jsp</welcome-file>
 	</welcome-file-list>
 
 	<servlet>

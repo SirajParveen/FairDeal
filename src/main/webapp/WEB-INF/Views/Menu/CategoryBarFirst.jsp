@@ -12,11 +12,11 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
   
     <ul class="nav navbar-nav">
-      <li><a href="Home"><img src="<c:url value="/resources/images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="60px" height="60px" align="left"> </a>
+      <li><a href="temp"><img src="<c:url value="/resources/images/ShoppingCartPic.jpg"></c:url>" alt="ShoppingCartPic" width="60px" height="60px" align="left"> </a>
         </ul>
         
         <ul class="nav navbar-nav">
@@ -33,7 +33,7 @@
     </form>
 		
 		 <ul class="nav navbar-nav navbar-right">
-      <li><a href="Home"><b>Home </b><span class="glyphicon glyphicon-home"></span> </a>
+      <li><a href="HomePage"><b>Home </b><span class="glyphicon glyphicon-home"></span> </a>
         </ul>
 		
 		 <div class="container">

@@ -17,7 +17,6 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
   footer {
-    
     margin-top: 100px;  
 } 
 body {
@@ -28,23 +27,17 @@ width:100%;
 </head>
 <body  style="background-color:#ffffff;">
 
+<script>
+document.body.style.backgroundImage = "url('resources/images/header.jpg')";
+</script>
 
-
-<!--  <div class="text-left" >
-  <h1 style="font-family:Georgia; font-size:30px;"><i>SHOPIN </i>
-    <img  src="https://www.sitewelder.com/art2012/logo-big-shopping.png" alt="logo" width="40px" height="40px" align="left" >
-  <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/F_icon.svg/768px-F_icon.svg.png" alt="fb" width="25px" height="25px" align="right" >
-  <img  src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Twitter_bird_logo_2012.svg/1259px-Twitter_bird_logo_2012.svg.png" alt="twitter" width="25px" height="25px" align="right" >
-  <img  src="http://icons.iconarchive.com/icons/danleech/simple/1024/linkedin-icon.png" alt="linkedin" width="25px" height="25px" align="right" >
-  </h1>
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
   
-  </div> -->
-  
-     <nav class="navbar navbar-inverse navbar-fixed-top">
+     <nav class="navbar navbar-inverse">
   <div class="container-fluid"> 
   <div class="navbar-header" class=" pull-left">
   <a class="navbar-brand" style="font-size:27px;margin-top: -4px;">
-     <i class="fa fa-opencart" aria-hidden="true"></i>FairDeal </a>
+    </a>
     <sec:authorize access="isAuthenticated()">
      <a class="navbar-brand" style="font-size:15px;"><span class="glyphicon glyphicon-user"></span> WELCOME <sec:authentication property="principal.username"/> </a>
      
@@ -52,16 +45,7 @@ width:100%;
 </sec:authorize>
     </div>
      <ul class="nav navbar-nav navbar-right" style="margin-bottom:-2px;">    
-      <li><a href="Home">HOME</a></li>
-       <sec:authorize access="!isAuthenticated()">
-     <li><a href="<c:url value="/perform_logout" />">Logout</a></li>
-      <li><a href="login">LOGIN</a></li>
-      </sec:authorize>
-	  <li><a href="CONTACTUS">CONTACT US</a></li>
-   <sec:authorize access="isAuthenticated()">
-   <li ><a href="Cart" >CART <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-	<li><a href="<c:url value="/perform_logout" />">LOGOUT<span class="glyphicon glyphicon-log-out"></span></a></li>
-</sec:authorize>
+	  <li><a href="#">CONTACT US</a></li>
 					  
    </ul>
    </div>
@@ -70,9 +54,9 @@ width:100%;
   <br>
   <br>
   <div style="text-align:center;padding-top:40px;padding-bottom:40px">
-  <h1> Thank You !!!</h1>
-  <h3>Your Payment Has Been Received <span class="glyphicon glyphicon-ok"></span></h3>
-  <img src="C:\Users\dell1\Mronline\Shoppingsite\src\main\webapp\resources\images\tq.jpg.png" class="img-rounded" alt="tq" width="304" height="236"> 
+  <h1 style="color: white;"> Thank You !!!</h1>
+  <h3 style="color: white;">Your Payment Has Been Received <span class="glyphicon glyphicon-ok"></span></h3><br>
+  <img src="resources\images\giphy.gif" class="img-rounded" alt="tq" width="400" height="250"> 
   </div>
    
 </body>

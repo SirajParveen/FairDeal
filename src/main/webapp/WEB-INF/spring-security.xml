@@ -26,7 +26,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:intercept-url pattern="/pay/**" access="hasRole('ROLE_USER')" />		
 
 		<security:form-login login-page="/login"
-			default-target-url="/" login-processing-url="/perform_login"
+			default-target-url="/HomePage" login-processing-url="/perform_login"
 			authentication-failure-url="/loginError"
 			authentication-success-forward-url="/login_session_attribute" 
 			 username-parameter ="j_username"
@@ -34,7 +34,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			/>
             
 		<security:logout logout-url="/perform_logout"
-			invalidate-session="true" logout-success-url="/Home" />
+			invalidate-session="true" logout-success-url="/HomePage" />
 
 		<security:csrf disabled="true" />
 

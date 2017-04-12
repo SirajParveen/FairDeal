@@ -28,6 +28,6 @@ public class UserController {
 		userDAO.createUser(user);
 		model.addAttribute("SuccessRegister", "Successfully Registered. Thank You !!!");
 		log.debug("Ending of the method registerUser");
-		return "Home";
+		return "HomePage";
 	}
 }

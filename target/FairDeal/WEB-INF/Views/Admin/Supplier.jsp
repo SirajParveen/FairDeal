@@ -11,7 +11,7 @@
 </head>
 <body>
 	<center>
-		<h2>Enter Supplier Details</h2>
+		<h2 style="color: white;">Enter Supplier Details</h2>
 		
 		
 		<c:if test="${empty supplier.name}">
@@ -27,7 +27,7 @@
 
 <tr>
 
-<td><form:label path="id"><spring:message text="Id" /></form:label></td>
+<td style="color: white;"><form:label path="id"><spring:message text="Id" /></form:label></td>
 
 	<c:choose>
 	<c:when test="${not empty supplier.id} ">
@@ -39,20 +39,20 @@
 	</c:choose>
 
 <tr>
-<td><form:label path="name"><spring:message text="Name" /></form:label></td>
+<td style="color: white;"><form:label path="name"><spring:message text="Name" /></form:label></td>
 <td><form:input path="name" required="true" /></td>
 </tr>
 
 <tr>
-<td><form:label path="address"> <spring:message text="Address"/></form:label></td>
+<td style="color: white;"><form:label path="address"> <spring:message text="Address"/></form:label></td>
 <td><form:input path="address" required="true" /></td>
 </tr>
 			
 <tr>
-<td colspan="2"><c:if test="${!empty supplier.name}"><input type="submit" value="<spring:message text="Update"/>" />
+<td colspan="2"><c:if test="${!empty supplier.name}"><input type="submit" value="<spring:message text="Update Supplier"/>" />
 	</c:if>
 	<c:if test="${empty supplier.name}">
-	<input type="submit" value="<spring:message text="Create"/>" />
+	<input type="submit" value="<spring:message text="Create Supplier"/>" />
 	</c:if>
 	</td>
 	</tr>
@@ -62,10 +62,10 @@
 	</center>
 
 	<center>
-		<h2>Supplier List</h2>
+		<h2 style="color: white;">Supplier List</h2>
 		<table border="2">
 			<thead>
-				<tr>
+				<tr style="color: white;">
 					<td>ID</td>
 					<td>NAME</td>
 					<td>ADDRESS</td>
@@ -73,7 +73,7 @@
 				</tr>
 			</thead>
 			<c:forEach var="supplier" items="${supplierList}">
-				<tr>
+				<tr style="color: white;">
 					<td>${supplier.id}</td>
 					<td>${supplier.name}</td>
 					<td>${supplier.address}</td>

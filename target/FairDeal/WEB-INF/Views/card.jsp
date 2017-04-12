@@ -4,40 +4,54 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page isELIgnored="false"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>card</title>
+<title>card page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
 <link rel="stylesheet" href="<c:url value="/resources/css/credit.css"/>">
-
 <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-theme.min.css" />">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
-  
- 
 </head>
 <body  style="background-color:#ffffff;">
 
+<script>
+document.body.style.backgroundImage = "url('resources/images/header.jpg')";
+</script>
+
+<jsp:include page="Menu/CategoryBarFirst.jsp"></jsp:include>
+    
+     <nav class="navbar navbar-inverse">
+  <div class="container-fluid"> 
+  <div class="navbar-header" class=" pull-left">
+  <a class="navbar-brand" style="font-size:27px;margin-top: -4px;">
+    </a>
+    <sec:authorize access="isAuthenticated()">
+     <a class="navbar-brand" style="font-size:15px;"><span class="glyphicon glyphicon-user"></span> WELCOME <sec:authentication property="principal.username"/> </a>
+     
+  	
+</sec:authorize>
+    </div>
+     <ul class="nav navbar-nav navbar-right" style="margin-bottom:-2px;">    
+	  <li><a href="#">CONTACT US</a></li>
+					  
+   </ul>
+   </div>
+  </nav>
+    <br><br><br><br>
+    
  <div class="container wrapper">
             <div class="row cart-head">
                 <div class="container">
                 <div class="row">
                     <p></p>
                 </div>
-                 <!-- <div class="row">
-                    <div style="display: table; margin: auto;">
-                        <span class="step step_complete"> <a href="#" class="check-bc">Cart</a> <span class="step_line step_complete">�</span> <span class="step_line backline">�</span> </span>
-                        <span class="step step_complete"> <a href="#" class="check-bc">Checkout</a> <span class="step_line ">�</span> <span class="step_line step_complete">�</span> </span>
-                        <span class="step_thankyou check-bc step_complete">Thank you</span>
-                    </div> -->
-                </div>
+                  </div>
                 <div class="row">
                     <p></p>
                 </div>
@@ -45,12 +59,15 @@
             </div>    
             <div class="container" style="padding-left: 300px;">
             <div class="row cart-body" style="width: 500px;">
-                <form class="form-horizontal" method="post" action="">
+            
+                        <!--CREDIT CART PAYMENT START-->
+                        
+                <form class="form-horizontal" method="post" action="tqpage">
                                    <div class="panel panel-info" >
                         <div class="panel-heading"><span><i class="glyphicon glyphicon-lock"></i></span> Secure Payment</div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Card Type:</strong></div>
+                                <div class="col-md-12"><strong>Card Type : </strong></div>
                                 <div class="col-md-12">
                                     <select id="CreditCardType" name="CreditCardType" class="form-control">
                                         <option value="5">Visa</option>
@@ -61,12 +78,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Credit Card Number:</strong></div>
-                                <div class="col-md-12"><input type="text" class="form-control" name="car_number" value="" /></div>
+                                <div class="col-md-12"><strong>Credit Card Number : </strong></div>
+                                <div class="col-md-12"><input type="text" class="form-control" name="car_number" value="" required/></div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Card CVV:</strong></div>
-                                <div class="col-md-12"><input type="text" class="form-control" name="car_code" value="" /></div>
+                                <div class="col-md-12"><strong>Card CVV : </strong></div>
+                                <div class="col-md-12"><input type="text" class="form-control" name="car_code" value="" required/></div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -108,7 +125,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <span>Pay secure using your credit card.</span>
+                                    <span>Pay Secure Using Your Credit Card</span>
                                 </div>
                                 <div class="col-md-12">
                                     <ul class="cards">
@@ -126,13 +143,14 @@
                             </div>
                         </div>
                     </div>
-                    </form>
+                    </form> 
+                    
                     <!--CREDIT CART PAYMENT END-->
+                    
                 </div>
                
             </div>
             <div class="row cart-footer">
-        
             </div>
         
 </body>

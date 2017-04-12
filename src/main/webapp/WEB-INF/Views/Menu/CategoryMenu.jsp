@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 </head>
 <body>
 
@@ -26,8 +27,12 @@
  	</c:forEach>
  	</ul>
  	
-        <ul class="nav navbar-nav navbar-right">
-     <li><h2><a href="#">${LoginMessage}</a></h2></li></ul>
+ 	 <ul class="nav navbar-nav navbar-right">
+ 	<sec:authorize access="isAuthenticated()">
+     <a class="navbar-brand" style="font-size:15px;"><span class="glyphicon glyphicon-user"></span> WELCOME 
+     <sec:authentication property="principal.username"/></a>
+     </sec:authorize>
+     </ul>
     
     </div>
     

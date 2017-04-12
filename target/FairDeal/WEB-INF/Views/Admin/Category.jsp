@@ -15,7 +15,7 @@
 <body>
 	${Message}
 	<center>
-		<h2>Enter Category Details</h2>
+		<h2 style="color: white;">Enter Category Details</h2>
 
 	<c:if test="${empty category.name}">
 		<c:url var="addAction" value="/Manage_Category_Create"></c:url>
@@ -31,28 +31,28 @@
 
 					<tr>
 
-						<td><form:label path="id">
+						<td style="color: white;"><form:label path="id">
 								<spring:message text="Id" />
 							</form:label></td>
 
 						<c:choose>
 							<c:when test="${not empty category.id} ">
-								<td><form:hidden path="id" readonly="true" editable="false"/></td>
+								<td style="color: white;"><form:hidden path="id" readonly="true" editable="false"/></td>
 							</c:when>
 							<c:otherwise>
-								<td><form:hidden path="id" required="true"
+								<td style="color: white;"><form:hidden path="id" required="true"
 										title="id should contain 5 to 20 characters" /></td>
 							</c:otherwise>
 						</c:choose>
 					<tr>
-						<td><form:label path="name">
+						<td style="color: white;"><form:label path="name">
 								<spring:message text="Name" />
 							</form:label></td>
 						<td><form:input path="name" required="true" /></td>
 					</tr>
 
 					<tr>
-						<td><form:label path="description">
+						<td style="color: white;"><form:label path="description">
 								<spring:message text="Description" />
 							</form:label></td>
 						<td><form:input path="description" required="true" /></td>
@@ -61,10 +61,10 @@
 					<tr>
 						<td colspan="2"><c:if test="${!empty category.name}">
 								<input type="submit"
-									value="<spring:message text="Update"/>" />
+									value="<spring:message text="Update Category"/>" />
 							</c:if> <c:if test="${empty category.name}">
 								<input type="submit"
-									value="<spring:message text="Create"/>" />
+									value="<spring:message text="Create Category"/>" />
 							</c:if></td>
 					</tr>
 			</table>
@@ -74,12 +74,12 @@
 
 
 	<center>
-		<h2>Category List</h2>
+		<h2 style="color: white;">Category List</h2>
 
 		<c:if test="${!empty categoryList}">
 			<table class="tg" border="2">
 				<thead>
-					<tr>
+					<tr style="color: white;">
 						<td>ID</td>
 						<td>NAME</td>
 						<td>DESCRIPTION</td>
@@ -89,7 +89,7 @@
 
 				<c:forEach var="category" items="${categoryList}">
 
-					<tr>
+					<tr style="color: white;">
 						<td>${category.id}</td>
 						<td>${category.name}</td>
 						<td>${category.description}</td>

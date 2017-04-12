@@ -28,37 +28,28 @@ $(document).ready(function(){
 
 </head>
 <body style="padding-top: 60px">
+
 <script>
-document.body.style.backgroundImage = "url('resources/images/BackgroundImage.jpg')";
+document.body.style.backgroundImage = "url('resources/images/header.jpg')";
 </script>
+
 		<div class="container">
 		<c:forEach items="${navproducts}" var="product">
 			<div class="col-xs-3 w3-animate-zoom">
 				<div class="img">
-					<a href="ShowProduct/${product.id}"> <img height="192px"
-						width="192px" alt="${product.id}"
+					<a href="ShowProduct/${product.id}"> <img height="192px" width="192px" alt="${product.id}"
 						src="<c:url value="/resources/images/${product.id}.jpg"></c:url>">
 					</a>
 
-					<%-- <img height="192px" width="192px"  alt="${product.id}"
-						src="<c:url value="/resources/images/product/${product.id}.jpg"></c:url>"></a> --%>
 					<div class="desc">
-						<p>
-
+						<p style="color: white;">
 							${product.name}<br> <i class="fa fa-inr" aria-hidden="true"></i>
 							${product.price}
-							<%-- <c:choose>
-								<c:when test="${LoggedIn}"> --%>
+						
 									<form action="addtoCart/${userid}/${product.id}">
 									<input type="submit" class="btn btn-primary" value="Add To Cart"/>
-										<!-- <input type="submit" value="Add to Cart"
-											class="btn btn-xs btn-success btn-block"> -->
-
 									</form>
-								<%-- </c:when>
-							</c:choose> --%>
-					
-
+									
 					</div>
 				</div>
 			</div>

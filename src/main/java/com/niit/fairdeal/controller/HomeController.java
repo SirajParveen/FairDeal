@@ -46,7 +46,6 @@ public class HomeController {
 	@Autowired
 	private HttpSession session;
 	
-	
 	@Autowired
 	private User user;
 	
@@ -57,21 +56,19 @@ public class HomeController {
 		log.debug("Starting of the method showHomePage");
 		
 		ModelAndView modelAndView = new ModelAndView("/Home");
-		
-		session.setAttribute("category", category);
-		session.setAttribute("product", product);
-		session.setAttribute("supplier", supplier);
-		session.setAttribute("user", user);
-		
-		session.setAttribute("categoryList", categoryDAO.getAllCategories());
-		session.setAttribute("productList", productDAO.getAllProducts());
-		session.setAttribute("supplierList", supplierDAO.getAllSuppliers());
 
-		
-		modelAndView.addObject("Clickedcatproduct", "true");
-		modelAndView.addObject("HideOthers","true");
-		
 		log.debug("Ending of the method showHomePage");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/temp")
+	public ModelAndView showtempPage()
+	{
+		log.debug("Starting of the method showtempPage");
+	
+		ModelAndView modelAndView = new ModelAndView("/Home");
+		
+		log.debug("Ending of the method showtempPage");
 		return modelAndView;
 	}
 	
@@ -86,7 +83,6 @@ public class HomeController {
 		modelAndView.addObject("isUserClickedLogin", "true");
 		
 		log.debug("Ending of the method showLoginPage");
-		
 		return modelAndView;
 	}
 	
@@ -155,10 +151,12 @@ public class HomeController {
 		return modelAndView;
 	}*/
 	
-	@RequestMapping("/Home")
+	@RequestMapping("/HomePage")
 	public String redirectToHome(@ModelAttribute("selectedProduct") final Product selectedProduct, final Model model)
 	{
 		log.debug("Starting of the method reDirectToHome");
+		
+		System.err.println("redirect to home page");
 		
 		model.addAttribute("selectedProduct", selectedProduct);
 		model.addAttribute("user", new User());
@@ -166,7 +164,6 @@ public class HomeController {
 		session.setAttribute("category", category);
 		session.setAttribute("product", product);
 		session.setAttribute("supplier", supplier);
-		session.setAttribute("user", user);
 		
 		session.setAttribute("categoryList", categoryDAO.getAllCategories());
 		session.setAttribute("productList", productDAO.getAllProducts());
@@ -176,12 +173,11 @@ public class HomeController {
 		model.addAttribute("HideOthers","true");
 		
 		log.debug("Ending of the method reDirectToHome");
-		return "/Home";
+		return "/HomePage";
 	}
 	
-	
 	 @RequestMapping(value ="ShowProduct/{id}")
-	    public String ShowProduct(@PathVariable("id") int id, RedirectAttributes attributes, Model m) 
+	 public String ShowProduct(@PathVariable("id") int id, RedirectAttributes attributes, Model m) 
 	 {
 		    log.debug("Starting of the method ShowProduct");
 	        m.addAttribute("UserClickedshowproduct", "true");
@@ -194,21 +190,8 @@ public class HomeController {
 		public String navproduct(Model m,@PathVariable("id") int id,RedirectAttributes attributes)
 		{
 			log.debug("Starting of the method navproduct");
-			//attributes.addFlashAttribute("Clickedcatproduct", "true");
 			attributes.addFlashAttribute("navproducts", productDAO.navproduct(id));
 			log.debug("Ending of the method navproduct");
-			return "redirect:/";
+			return "redirect:/HomePage";
 		}
-	
-	/*@RequestMapping("/Cart")
-	public ModelAndView showCartPage()
-	{
-		log.debug("Starting of the method showCartPage");
-		
-		ModelAndView modelAndView = new ModelAndView("/Home");
-		modelAndView.addObject("isUserClickedCart", "true");
-		
-		log.debug("Ending of the method showCartPage");
-		return modelAndView;
-	}*/
 }

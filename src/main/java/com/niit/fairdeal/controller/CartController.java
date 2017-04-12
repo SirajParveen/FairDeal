@@ -58,14 +58,12 @@ public class CartController {
 	   Product product1 = productDAO.getProductByID(productid);
 	   q=cart1.getQuantity();
 	   cart1.setStatus("C");
-	   cart1.setUserid(userid);
 	   p=product1.getPrice();
 	   q+=1;
 	   p=q*p;
 	 cart1.setQuantity(q);
 	 cart1.setPrice(p);
 	cartDAO.save(cart1);
-	session.setAttribute("cartsize", cartDAO.cartsize( (Integer) session.getAttribute("userId")));
 	System.out.println("Operation Over");
 
 	log.debug("Ending of the method addtoCart");
@@ -112,7 +110,7 @@ public class CartController {
 	 public ModelAndView cartpage(@ModelAttribute("cart") Cart cart, HttpSession session)
 	 {
 	  log.debug("Starting of the method cartpage");	 
-	  ModelAndView mv= new ModelAndView("/Home");
+	  ModelAndView mv= new ModelAndView("/HomePage");
 	  int userid = (Integer) session.getAttribute("userid");
 	  mv.addObject("cartList", cartDAO.get(userid));
 	  if(cartDAO.cartsize((Integer) session.getAttribute("userid"))!=0){
@@ -143,25 +141,15 @@ public class CartController {
 	  log.debug("Starting of the method payment");	 
 	  cartDAO.pay((Integer) session.getAttribute("userid"));
 	  log.debug("Ending of the method payment");
-	  return "Home";
+	  return "HomePage";
 	 }
 	 
 	 @RequestMapping("tqpage")
 	 public String tqpage(HttpSession session) 
 	 {
-	  log.debug("Starting of the method payment");	 
+	  log.debug("Starting of the method tqpage");	 
 	  cartDAO.pay((Integer) session.getAttribute("userid"));
-	  log.debug("Ending of the method payment");
+	  log.debug("Ending of the method tqpage");
 	  return "tqpage";
 	 }
-	 
-	/* @RequestMapping(value="navproducts/{id}")
-		public String navproduct(Model m,@PathVariable("id") int id,RedirectAttributes attributes)
-		{
-			log.debug("Starting of the method navproduct");
-			m.addAttribute("Clickedcatproduct", "true");
-			attributes.addFlashAttribute("navproducts", productDAO.navproduct(id));
-			log.debug("Ending of the method navproduct");
-			return "redirect:/";
-		}*/
 }

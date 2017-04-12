@@ -12,7 +12,7 @@
 <body>
 	${Message}
 	<center>
-		<h2>Enter Product Details</h2>
+		<h2 style="color: white;">Enter Product Details</h2>
 
 
 		<c:if test="${empty product.name}">
@@ -30,7 +30,7 @@
 
 					<tr>
 
-						<td><form:label path="id">
+						<td style="color: white;"><form:label path="id">
 								<spring:message text="Id" />
 							</form:label></td>
 
@@ -44,28 +44,28 @@
 							</c:otherwise>
 						</c:choose>
 					<tr>
-						<td><form:label path="name">
+						<td style="color: white;"><form:label path="name">
 								<spring:message text="Name" />
 							</form:label></td>
 						<td><form:input path="name" required="true" /></td>
 					</tr>
 
 					<tr>
-						<td><form:label path="price">
+						<td style="color: white;"><form:label path="price">
 								<spring:message text="Price" />
 							</form:label></td>
 						<td><form:input path="price" required="true" /></td>
 					</tr>
 
 					<tr>
-						<td><form:label path="description">
+						<td style="color: white;"><form:label path="description">
 								<spring:message text="Description" />
 							</form:label></td>
 						<td><form:input path="description" required="true" /></td>
 					</tr>
 
 					<tr>
-						<td>Category ID:</td>
+						<td style="color: white;"><b>Category ID:</b></td>
 						<td><form:select path="category_id" required="true">
 								<spring:message text="Category_id" />
 								<c:forEach items="${categoryList}" var="category">
@@ -75,7 +75,7 @@
 					</tr>
 
 					<tr>
-						<td>Supplier ID:</td>
+						<td style="color: white;"><b>Supplier ID:</b></td>
 						<td><form:select path="supplier_id" required="true">
 								<spring:message text="Supplier_id" />
 								<c:forEach items="${supplierList}" var="supplier">
@@ -86,16 +86,16 @@
 
 
 					<tr>
-						<td>Image:</td>
+						<td style="color: white;"><b>Image:</b></td>
 						<td><form:input type="file"
 								class=" btn btn-default btn-block form-control" path="image"
 								required="true" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><c:if test="${!empty product.name}">
-								<input type="submit" value="<spring:message text="Update"/>" />
+								<input type="submit" value="<spring:message text="Update Product"/>" />
 							</c:if> <c:if test="${empty product.name}">
-								<input type="submit" value="<spring:message text="Create"/>" />
+								<input type="submit" value="<spring:message text="Create Product"/>" />
 							</c:if></td>
 					</tr>
 			</table>
@@ -103,10 +103,10 @@
 	</center>
 
 	<center>
-		<h2>Product List</h2>
+		<h2 style="color: white;">Product List</h2>
 		<table border="2">
 			<thead>
-				<tr>
+				<tr style="color: white;">
 					<th>ID</th>
 					<th>NAME</th>
 					<th>PRICE</th>
@@ -118,7 +118,7 @@
 				</tr>
 			</thead>
 			<c:forEach var="product" items="${productList}">
-				<tr>
+				<tr style="color: white;">
 					<td>${product.id}</td>
 					<td>${product.name}</td>
 					<td>${product.price}</td>
